@@ -1,5 +1,5 @@
 public class Task {
-    private String name;
+    public String name;
 
     public Task(String name) {
         this.name = name;
