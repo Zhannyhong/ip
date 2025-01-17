@@ -22,6 +22,7 @@ public class Gabby {
 
     private static void addTask(String taskDesc) {
         Gabby.taskList.add(new Task(taskDesc));
+        Gabby.displayMsg("added: " + taskDesc);
     }
 
     private static void listTasks() {
@@ -36,14 +37,35 @@ public class Gabby {
         Gabby.displayMsg(msg.toString());
     }
 
+    private static void markTask(int taskID) {
+        if (1 <= taskID && taskID <= taskList.size()) {
+            Task task = taskList.get(taskID - 1);
+            task.markAsDone();
+            Gabby.displayMsg("Nice! I've marked this task as done:\n  [X] " + task.description);
+        } else {
+            Gabby.displayMsg("No such task in your list!");
+        }
+    }
+
+    public static void unmarkTask(int taskID) {
+        if (1 <= taskID && taskID <= taskList.size()) {
+            Task task = taskList.get(taskID - 1);
+            task.markNotDone();
+            Gabby.displayMsg("OK, I've marked this task as not done yet:\n  [ ] " + task.description);
+        } else {
+            Gabby.displayMsg("No such task in your list!");
+        }
+    }
+
     public static void main(String[] args) {
         Gabby.greet();
 
         Scanner reader = new Scanner(System.in);
-        String input = reader.nextLine().strip();
+        String[] input = reader.nextLine().strip().split(" ");
+        String command = input[0];
 
         while (true) {
-            switch (input) {
+            switch (command) {
                 case "":
                     break;
                 case "bye":
@@ -52,12 +74,21 @@ public class Gabby {
                 case "list":
                     Gabby.listTasks();
                     break;
+                case "mark":
+                    int taskID = Integer.parseInt(input[1]);
+                    Gabby.markTask(taskID);
+                    break;
+                case "unmark":
+                    taskID = Integer.parseInt(input[1]);
+                    Gabby.unmarkTask(taskID);
+                    break;
                 default:
-                    addTask(input);
-                    Gabby.displayMsg("added: " + input);
+                    String taskDesc = String.join(" ", input);
+                    Gabby.addTask(taskDesc);
             }
 
-            input = reader.nextLine().strip();
+            input = reader.nextLine().strip().split(" ");
+            command = input[0];
         }
     }
 }
