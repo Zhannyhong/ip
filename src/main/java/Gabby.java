@@ -4,7 +4,7 @@ import java.util.StringJoiner;
 
 public class Gabby {
     private static final String LINE = "____________________________________________________________";
-    private static final ArrayList<Task> taskList = new ArrayList<>(100);
+    private static final ArrayList<Task> taskList = new ArrayList<>();
 
     private static void greet() {
         Gabby.displayMsg("Hello! I'm Gabby\nWhat can I do for you?");
@@ -20,17 +20,23 @@ public class Gabby {
         System.out.println(LINE + "\n");
     }
 
-    private static void addTask(String taskDesc) {
-        Gabby.taskList.add(new Task(taskDesc));
-        Gabby.displayMsg("added: " + taskDesc);
+    private static void addTask(Task task) {
+        Gabby.taskList.add(task);
+        Gabby.displayMsg(String.format("Got it. I've added this task:\n  %s\nNow you have %d task%s in the list.",
+                task, taskList.size(), taskList.size() == 1 ? "" : "s"));
     }
 
     private static void listTasks() {
+        if (taskList.isEmpty()) {
+            Gabby.displayMsg("You have not added any tasks!");
+            return;
+        }
+
         StringJoiner msg = new StringJoiner("\n");
         msg.add("Here are the tasks in your list:");
 
         for (int i = 0; i < taskList.size(); i++) {
-            msg.add(String.format("%d.%s", i + 1, taskList.get(i).toString()));
+            msg.add(String.format("%d.%s", i + 1, taskList.get(i)));
         }
 
         Gabby.displayMsg(msg.toString());
@@ -40,9 +46,9 @@ public class Gabby {
         if (1 <= taskID && taskID <= taskList.size()) {
             Task task = taskList.get(taskID - 1);
             task.markAsDone();
-            Gabby.displayMsg("Nice! I've marked this task as done:\n  [X] " + task.description);
+            Gabby.displayMsg("Nice! I've marked this task as done:\n  " + task);
         } else {
-            Gabby.displayMsg("No such task in your list!");
+            Gabby.displayMsg("Task " + taskID + " is not in your list!");
         }
     }
 
@@ -50,9 +56,9 @@ public class Gabby {
         if (1 <= taskID && taskID <= taskList.size()) {
             Task task = taskList.get(taskID - 1);
             task.markNotDone();
-            Gabby.displayMsg("OK, I've marked this task as not done yet:\n  [ ] " + task.description);
+            Gabby.displayMsg("OK, I've marked this task as not done yet:\n  " + task);
         } else {
-            Gabby.displayMsg("No such task in your list!");
+            Gabby.displayMsg("Task " + taskID + " is not in your list!");
         }
     }
 
@@ -60,8 +66,9 @@ public class Gabby {
         Gabby.greet();
 
         Scanner reader = new Scanner(System.in);
-        String[] input = reader.nextLine().strip().split(" ");
+        String[] input = reader.nextLine().strip().split(" ", 2);
         String command = input[0];
+        String arg = input.length > 1 ? input[1] : "";
 
         while (true) {
             switch (command) {
@@ -74,20 +81,27 @@ public class Gabby {
                     Gabby.listTasks();
                     break;
                 case "mark":
-                    int taskID = Integer.parseInt(input[1]);
-                    Gabby.markTask(taskID);
+                    Gabby.markTask(Integer.parseInt(arg));
                     break;
                 case "unmark":
-                    taskID = Integer.parseInt(input[1]);
-                    Gabby.unmarkTask(taskID);
+                    Gabby.unmarkTask(Integer.parseInt(arg));
+                    break;
+                case "todo":
+                    Gabby.addTask(TodoTask.parseArgs(arg));
+                    break;
+                case "deadline":
+                    Gabby.addTask(DeadlineTask.parseArgs(arg));
+                    break;
+                case "event":
+                    Gabby.addTask(EventTask.parseArgs(arg));
                     break;
                 default:
-                    String taskDesc = String.join(" ", input);
-                    Gabby.addTask(taskDesc);
+                    Gabby.displayMsg("Oops! I don't understand what you just said =(");
             }
 
-            input = reader.nextLine().strip().split(" ");
+            input = reader.nextLine().strip().split(" ", 2);
             command = input[0];
+            arg = input.length > 1 ? input[1] : "";
         }
     }
 }

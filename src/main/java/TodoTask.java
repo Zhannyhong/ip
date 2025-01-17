@@ -1,6 +1,10 @@
-public class TodoTask extends Task{
+public class TodoTask extends Task {
     public TodoTask(String description) {
         super(description);
+    }
+
+    public static TodoTask parseArgs(String args) {
+        return new TodoTask(args);
     }
 
     @Override
