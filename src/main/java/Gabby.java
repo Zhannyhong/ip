@@ -20,15 +20,17 @@ public class Gabby {
         System.out.println(LINE + "\n");
     }
 
-    private static void addTask(String taskName) {
-        Gabby.taskList.add(new Task(taskName));
+    private static void addTask(String taskDesc) {
+        Gabby.taskList.add(new Task(taskDesc));
     }
 
     private static void listTasks() {
         StringJoiner msg = new StringJoiner("\n");
+        msg.add("Here are the tasks in your list:");
 
         for (int i = 0; i < taskList.size(); i++) {
-            msg.add(String.format("%d. %s", i + 1, taskList.get(i).name));
+            Task task = taskList.get(i);
+            msg.add(String.format("%d.[%s] %s", i + 1, task.getStatusIcon(), task.description));
         }
 
         Gabby.displayMsg(msg.toString());
@@ -38,10 +40,12 @@ public class Gabby {
         Gabby.greet();
 
         Scanner reader = new Scanner(System.in);
-        String input = reader.nextLine();
+        String input = reader.nextLine().strip();
 
         while (true) {
             switch (input) {
+                case "":
+                    break;
                 case "bye":
                     Gabby.bye();
                     return;
@@ -53,7 +57,7 @@ public class Gabby {
                     Gabby.displayMsg("added: " + input);
             }
 
-            input = reader.nextLine();
+            input = reader.nextLine().strip();
         }
     }
 }
