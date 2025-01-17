@@ -30,8 +30,7 @@ public class Gabby {
         msg.add("Here are the tasks in your list:");
 
         for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.get(i);
-            msg.add(String.format("%d.[%s] %s", i + 1, task.getStatusIcon(), task.description));
+            msg.add(String.format("%d.%s", i + 1, taskList.get(i).toString()));
         }
 
         Gabby.displayMsg(msg.toString());
