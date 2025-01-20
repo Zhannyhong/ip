@@ -4,11 +4,11 @@ import java.util.StringJoiner;
 
 public class Gabby {
     static final String LOGO = """
-              _____     __   __      \s
+              _____     __   __
              / ___/__ _/ /  / /  __ __
             / (_ / _ `/ _ \\/ _ \\/ // /
-            \\___/\\_,_/_.__/_.__/\\_, /\s
-                               /___/ \s
+            \\___/\\_,_/_.__/_.__/\\_, /
+                               /___/
             """;
     private static final String LINE = "____________________________________________________________";
     private static final ArrayList<Task> taskList = new ArrayList<>();

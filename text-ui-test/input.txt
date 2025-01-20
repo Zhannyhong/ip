@@ -8,4 +8,6 @@ mark 4
 todo borrow book
 unmark 4
 list
+delete 1
+list
 bye

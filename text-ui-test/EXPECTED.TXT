@@ -1,26 +1,30 @@
+  _____     __   __
+ / ___/__ _/ /  / /  __ __
+/ (_ / _ `/ _ \/ _ \/ // /
+\___/\_,_/_.__/_.__/\_, /
+                   /___/
 ____________________________________________________________
 Gabby:
-Hello! I'm Gabby
-What can I do for you?
+Fancy seeing you here! What can I do for you?
 ____________________________________________________________
 
 ____________________________________________________________
 Gabby:
-Got it. I've added this task:
+Wow what a busy man huh. I've added this task:
   [T][ ] read book
 Now you have 1 task in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Gabby:
-Got it. I've added this task:
+Wow what a busy man huh. I've added this task:
   [D][ ] return book (by: June 6th)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Gabby:
-Got it. I've added this task:
+Wow what a busy man huh. I've added this task:
   [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 Now you have 3 tasks in the list.
 ____________________________________________________________
@@ -35,33 +39,33 @@ ____________________________________________________________
 
 ____________________________________________________________
 Gabby:
-Nice! I've marked this task as done:
+Great job! I've marked this task as done:
   [T][X] read book
 ____________________________________________________________
 
 ____________________________________________________________
 Gabby:
-Got it. I've added this task:
+Wow what a busy man huh. I've added this task:
   [T][ ] join sports club
 Now you have 4 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Gabby:
-Nice! I've marked this task as done:
+Great job! I've marked this task as done:
   [T][X] join sports club
 ____________________________________________________________
 
 ____________________________________________________________
 Gabby:
-Got it. I've added this task:
+Wow what a busy man huh. I've added this task:
   [T][ ] borrow book
 Now you have 5 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Gabby:
-OK, I've marked this task as not done yet:
+Sure! I've marked this task as not done yet:
   [T][ ] join sports club
 ____________________________________________________________
 
@@ -77,6 +81,22 @@ ____________________________________________________________
 
 ____________________________________________________________
 Gabby:
-Bye. Hope to see you again soon!
+Poof! I've removed this task:
+  [T][X] read book
+Now you have 4 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+Gabby:
+Here are the tasks in your list:
+1.[D][ ] return book (by: June 6th)
+2.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+3.[T][ ] join sports club
+4.[T][ ] borrow book
+____________________________________________________________
+
+____________________________________________________________
+Gabby:
+Nuuu I hate to see you go... Hope to see you again soon!
 ____________________________________________________________
 
