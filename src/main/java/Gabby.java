@@ -3,15 +3,23 @@ import java.util.Scanner;
 import java.util.StringJoiner;
 
 public class Gabby {
+    static final String LOGO = """
+              _____     __   __      \s
+             / ___/__ _/ /  / /  __ __
+            / (_ / _ `/ _ \\/ _ \\/ // /
+            \\___/\\_,_/_.__/_.__/\\_, /\s
+                               /___/ \s
+            """;
     private static final String LINE = "____________________________________________________________";
     private static final ArrayList<Task> taskList = new ArrayList<>();
 
     private static void greet() {
-        Gabby.displayMsg("Hello! I'm Gabby\nWhat can I do for you?");
+        System.out.printf(LOGO);
+        Gabby.displayMsg("Fancy seeing you here! What can I do for you?");
     }
 
     private static void bye() {
-        Gabby.displayMsg("Bye. Hope to see you again soon!");
+        Gabby.displayMsg("Nuuu I hate to see you go... Hope to see you again soon!");
     }
 
     private static void displayMsg(String msg) {
@@ -22,7 +30,7 @@ public class Gabby {
 
     private static void addTask(Task task) {
         Gabby.taskList.add(task);
-        Gabby.displayMsg(String.format("Got it. I've added this task:\n  %s\nNow you have %d task%s in the list.",
+        Gabby.displayMsg(String.format("Wow what a busy man huh. I've added this task:\n  %s\nNow you have %d task%s in the list.",
                 task, taskList.size(), taskList.size() == 1 ? "" : "s"));
     }
 
@@ -45,18 +53,18 @@ public class Gabby {
     private static void markTask(int taskID) {
         Task task = taskList.get(taskID - 1);
         task.markAsDone();
-        Gabby.displayMsg("Nice! I've marked this task as done:\n  " + task);
+        Gabby.displayMsg("Great job! I've marked this task as done:\n  " + task);
     }
 
     private static void unmarkTask(int taskID) {
         Task task = taskList.get(taskID - 1);
         task.markNotDone();
-        Gabby.displayMsg("OK, I've marked this task as not done yet:\n  " + task);
-}
+        Gabby.displayMsg("Sure! I've marked this task as not done yet:\n  " + task);
+    }
 
     private static void deleteTask(int taskID) {
         Task task = taskList.remove(taskID - 1);
-        Gabby.displayMsg(String.format("Noted. I've removed this task:\n  %s\nNow you have %d task%s in the list.",
+        Gabby.displayMsg(String.format("Poof! I've removed this task:\n  %s\nNow you have %d task%s in the list.",
                 task, taskList.size(), taskList.size() == 1 ? "" : "s"));
     }
 
@@ -89,35 +97,35 @@ public class Gabby {
 
         while (true) {
             try {
-                switch (command) {
+                switch (command.toUpperCase()) {
                     case "":
                         break;
-                    case "bye":
+                    case "BYE":
                         Gabby.bye();
                         return;
-                    case "list":
+                    case "LIST":
                         Gabby.listTasks();
                         break;
-                    case "mark":
+                    case "MARK":
                         Gabby.markTask(Gabby.extractTaskID(arg));
                         break;
-                    case "unmark":
+                    case "UNMARK":
                         Gabby.unmarkTask(Gabby.extractTaskID(arg));
                         break;
-                    case "delete":
+                    case "DELETE":
                         Gabby.deleteTask(Gabby.extractTaskID(arg));
                         break;
-                    case "todo":
+                    case "TODO":
                         Gabby.addTask(TodoTask.parseArgs(arg));
                         break;
-                    case "deadline":
+                    case "DEADLINE":
                         Gabby.addTask(DeadlineTask.parseArgs(arg));
                         break;
-                    case "event":
+                    case "EVENT":
                         Gabby.addTask(EventTask.parseArgs(arg));
                         break;
                     default:
-                        Gabby.displayMsg("Oops! I don't understand what you just said =(");
+                        Gabby.displayMsg("Sorry! I don't understand what you just said =(");
                 }
             } catch (GabbyException err) {
                 Gabby.displayMsg(err.getMessage());
