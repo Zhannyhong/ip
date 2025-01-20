@@ -28,7 +28,7 @@ public class Gabby {
 
     private static void listTasks() {
         if (taskList.isEmpty()) {
-            Gabby.displayMsg("You have not added any tasks!");
+            Gabby.displayMsg("You have no tasks in your list!");
             return;
         }
 
@@ -43,23 +43,40 @@ public class Gabby {
     }
 
     private static void markTask(int taskID) {
-        if (1 <= taskID && taskID <= taskList.size()) {
-            Task task = taskList.get(taskID - 1);
-            task.markAsDone();
-            Gabby.displayMsg("Nice! I've marked this task as done:\n  " + task);
-        } else {
-            Gabby.displayMsg("Task ID '" + taskID + "' is not in your list!");
-        }
+        Task task = taskList.get(taskID - 1);
+        task.markAsDone();
+        Gabby.displayMsg("Nice! I've marked this task as done:\n  " + task);
     }
 
-    public static void unmarkTask(int taskID) {
-        if (1 <= taskID && taskID <= taskList.size()) {
-            Task task = taskList.get(taskID - 1);
-            task.markNotDone();
-            Gabby.displayMsg("OK, I've marked this task as not done yet:\n  " + task);
-        } else {
-            Gabby.displayMsg("Task ID '" + taskID + "' is not in your list!");
+    private static void unmarkTask(int taskID) {
+        Task task = taskList.get(taskID - 1);
+        task.markNotDone();
+        Gabby.displayMsg("OK, I've marked this task as not done yet:\n  " + task);
+}
+
+    private static void deleteTask(int taskID) {
+        Task task = taskList.remove(taskID - 1);
+        Gabby.displayMsg(String.format("Noted. I've removed this task:\n  %s\nNow you have %d task%s in the list.",
+                task, taskList.size(), taskList.size() == 1 ? "" : "s"));
+    }
+
+    private static int extractTaskID(String args) throws GabbyException {
+        if (args.isEmpty()) {
+            throw new GabbyException("I need to know the ID of the task!");
         }
+
+        int taskID;
+        try {
+            taskID = Integer.parseInt(args);
+        } catch (NumberFormatException err) {
+            throw new GabbyException("'" + args + "' is not a valid integer!");
+        }
+
+        if (taskID < 1 || taskID > taskList.size()) {
+            throw new GabbyException("Task ID '" + taskID + "' is not in your list!");
+        }
+
+        return taskID;
     }
 
     public static void main(String[] args) {
@@ -71,60 +88,39 @@ public class Gabby {
         String arg = input.length > 1 ? input[1] : "";
 
         while (true) {
-            switch (command) {
-                case "":
-                    break;
-                case "bye":
-                    Gabby.bye();
-                    return;
-                case "list":
-                    Gabby.listTasks();
-                    break;
-                case "mark":
-                    if (arg.isEmpty()) {
-                        Gabby.displayMsg("I need to know the ID of the task to mark! Format: mark <task ID>");
-                    } else {
-                        try {
-                            Gabby.markTask(Integer.parseInt(arg));
-                        } catch (NumberFormatException err) {
-                            Gabby.displayMsg("'" + arg + "' is not a valid integer!");
-                        }
-                    }
-                    break;
-                case "unmark":
-                    if (arg.isEmpty()) {
-                        Gabby.displayMsg("I need to know the ID of the task to unmark! Format: unmark <task ID>");
-                    } else {
-                        try {
-                            Gabby.unmarkTask(Integer.parseInt(arg));
-                        } catch (NumberFormatException err) {
-                            Gabby.displayMsg("'" + arg + "' is not a valid integer!");
-                        }
-                    }
-                    break;
-                case "todo":
-                    try {
+            try {
+                switch (command) {
+                    case "":
+                        break;
+                    case "bye":
+                        Gabby.bye();
+                        return;
+                    case "list":
+                        Gabby.listTasks();
+                        break;
+                    case "mark":
+                        Gabby.markTask(Gabby.extractTaskID(arg));
+                        break;
+                    case "unmark":
+                        Gabby.unmarkTask(Gabby.extractTaskID(arg));
+                        break;
+                    case "delete":
+                        Gabby.deleteTask(Gabby.extractTaskID(arg));
+                        break;
+                    case "todo":
                         Gabby.addTask(TodoTask.parseArgs(arg));
-                    } catch (GabbyException err) {
-                        Gabby.displayMsg(err.getMessage());
-                    }
-                    break;
-                case "deadline":
-                    try {
+                        break;
+                    case "deadline":
                         Gabby.addTask(DeadlineTask.parseArgs(arg));
-                    } catch (GabbyException err) {
-                        Gabby.displayMsg(err.getMessage());
-                    }
-                    break;
-                case "event":
-                    try {
+                        break;
+                    case "event":
                         Gabby.addTask(EventTask.parseArgs(arg));
-                    } catch (GabbyException err) {
-                        Gabby.displayMsg(err.getMessage());
-                    }
-                    break;
-                default:
-                    Gabby.displayMsg("Oops! I don't understand what you just said =(");
+                        break;
+                    default:
+                        Gabby.displayMsg("Oops! I don't understand what you just said =(");
+                }
+            } catch (GabbyException err) {
+                Gabby.displayMsg(err.getMessage());
             }
 
             input = reader.nextLine().strip().split(" ", 2);
