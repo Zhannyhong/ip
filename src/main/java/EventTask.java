@@ -1,4 +1,8 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class EventTask extends Task {
+    private static final Pattern eventPattern = Pattern.compile("(.+) /from (.+) /to (.+)");
     protected String from;
     protected String to;
 
@@ -8,9 +12,17 @@ public class EventTask extends Task {
         this.to = to;
     }
 
-    public static EventTask parseArgs(String args) {
-        String[] parsed = args.split("( /from )|( /to )");
-        return new EventTask(parsed[0], parsed[1], parsed[2]);
+    public static EventTask parseArgs(String args) throws GabbyException {
+        if (args.isEmpty()) {
+            throw new GabbyException("Oh no! The description of an event cannot be empty!");
+        }
+
+        Matcher parsed = eventPattern.matcher(args);
+        if (!parsed.matches()) {
+            throw new GabbyException("Events have to be in the format: event <description> /from <date> /to <date>");
+        }
+
+        return new EventTask(parsed.group(1), parsed.group(2), parsed.group(3));
     }
 
     @Override

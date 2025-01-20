@@ -3,7 +3,11 @@ public class TodoTask extends Task {
         super(description);
     }
 
-    public static TodoTask parseArgs(String args) {
+    public static TodoTask parseArgs(String args) throws GabbyException {
+        if (args.isEmpty()) {
+            throw new GabbyException("Oh no! The description of a todo cannot be empty!");
+        }
+
         return new TodoTask(args);
     }
 

@@ -48,7 +48,7 @@ public class Gabby {
             task.markAsDone();
             Gabby.displayMsg("Nice! I've marked this task as done:\n  " + task);
         } else {
-            Gabby.displayMsg("Task " + taskID + " is not in your list!");
+            Gabby.displayMsg("Task ID '" + taskID + "' is not in your list!");
         }
     }
 
@@ -58,7 +58,7 @@ public class Gabby {
             task.markNotDone();
             Gabby.displayMsg("OK, I've marked this task as not done yet:\n  " + task);
         } else {
-            Gabby.displayMsg("Task " + taskID + " is not in your list!");
+            Gabby.displayMsg("Task ID '" + taskID + "' is not in your list!");
         }
     }
 
@@ -81,19 +81,47 @@ public class Gabby {
                     Gabby.listTasks();
                     break;
                 case "mark":
-                    Gabby.markTask(Integer.parseInt(arg));
+                    if (arg.isEmpty()) {
+                        Gabby.displayMsg("I need to know the ID of the task to mark! Format: mark <task ID>");
+                    } else {
+                        try {
+                            Gabby.markTask(Integer.parseInt(arg));
+                        } catch (NumberFormatException err) {
+                            Gabby.displayMsg("'" + arg + "' is not a valid integer!");
+                        }
+                    }
                     break;
                 case "unmark":
-                    Gabby.unmarkTask(Integer.parseInt(arg));
+                    if (arg.isEmpty()) {
+                        Gabby.displayMsg("I need to know the ID of the task to unmark! Format: unmark <task ID>");
+                    } else {
+                        try {
+                            Gabby.unmarkTask(Integer.parseInt(arg));
+                        } catch (NumberFormatException err) {
+                            Gabby.displayMsg("'" + arg + "' is not a valid integer!");
+                        }
+                    }
                     break;
                 case "todo":
-                    Gabby.addTask(TodoTask.parseArgs(arg));
+                    try {
+                        Gabby.addTask(TodoTask.parseArgs(arg));
+                    } catch (GabbyException err) {
+                        Gabby.displayMsg(err.getMessage());
+                    }
                     break;
                 case "deadline":
-                    Gabby.addTask(DeadlineTask.parseArgs(arg));
+                    try {
+                        Gabby.addTask(DeadlineTask.parseArgs(arg));
+                    } catch (GabbyException err) {
+                        Gabby.displayMsg(err.getMessage());
+                    }
                     break;
                 case "event":
-                    Gabby.addTask(EventTask.parseArgs(arg));
+                    try {
+                        Gabby.addTask(EventTask.parseArgs(arg));
+                    } catch (GabbyException err) {
+                        Gabby.displayMsg(err.getMessage());
+                    }
                     break;
                 default:
                     Gabby.displayMsg("Oops! I don't understand what you just said =(");
