@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringJoiner;
@@ -11,6 +15,7 @@ public class Gabby {
                                /___/
             """;
     private static final String LINE = "____________________________________________________________";
+    private static final String TASK_STORE_PATH = "./data/tasks.txt";
     private static final ArrayList<Task> taskList = new ArrayList<>();
 
     private static void greet() {
@@ -87,8 +92,64 @@ public class Gabby {
         return taskID;
     }
 
+    private static void loadTaskList() {
+        File file = new File(TASK_STORE_PATH);
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String[] serialized = scanner.nextLine().split(" \\| ");
+
+                if (serialized.length < 3) {
+                    Gabby.displayMsg("Saved task is in an incorrect format!");
+                    continue;
+                }
+
+                try {
+                    switch (serialized[0]) {
+                        case "T":
+                            taskList.add(TodoTask.deserialize(serialized));
+                            break;
+                        case "D":
+                            taskList.add(DeadlineTask.deserialize(serialized));
+                            break;
+                        case "E":
+                            taskList.add(EventTask.deserialize(serialized));
+                            break;
+                        default:
+                            Gabby.displayMsg("Saved task is in an incorrect format!");
+                    }
+                } catch (GabbyException err) {
+                    Gabby.displayMsg(err.getMessage());
+                }
+            }
+        } catch (FileNotFoundException err) {
+            // Chatbot might be run for the first time and there are no saved tasks to load
+        }
+    }
+
+    private static void saveTaskList() {
+        File file = new File(TASK_STORE_PATH);
+
+        try {
+            if (file.getParentFile() != null) {
+                file.getParentFile().mkdirs();
+            }
+        } catch (SecurityException err) {
+            Gabby.displayMsg("Unable to create directory to save tasks!");
+        }
+
+        try (FileWriter writer = new FileWriter(file)) {
+            for (Task task : taskList) {
+                writer.write(task.serialize() + "\n");
+            }
+        } catch (IOException err) {
+            Gabby.displayMsg("Error writing to file while saving tasks!");
+        }
+    }
+
     public static void main(String[] args) {
         Gabby.greet();
+        Gabby.loadTaskList();
 
         Scanner reader = new Scanner(System.in);
         String[] input = reader.nextLine().strip().split(" ", 2);
@@ -108,21 +169,27 @@ public class Gabby {
                         break;
                     case "MARK":
                         Gabby.markTask(Gabby.extractTaskID(arg));
+                        Gabby.saveTaskList();
                         break;
                     case "UNMARK":
                         Gabby.unmarkTask(Gabby.extractTaskID(arg));
+                        Gabby.saveTaskList();
                         break;
                     case "DELETE":
                         Gabby.deleteTask(Gabby.extractTaskID(arg));
+                        Gabby.saveTaskList();
                         break;
                     case "TODO":
                         Gabby.addTask(TodoTask.parseArgs(arg));
+                        Gabby.saveTaskList();
                         break;
                     case "DEADLINE":
                         Gabby.addTask(DeadlineTask.parseArgs(arg));
+                        Gabby.saveTaskList();
                         break;
                     case "EVENT":
                         Gabby.addTask(EventTask.parseArgs(arg));
+                        Gabby.saveTaskList();
                         break;
                     default:
                         Gabby.displayMsg("Sorry! I don't understand what you just said =(");

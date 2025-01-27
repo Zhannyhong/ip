@@ -23,6 +23,27 @@ public class DeadlineTask extends Task {
         return new DeadlineTask(parsed.group(1), parsed.group(2));
     }
 
+    public static DeadlineTask deserialize(String[] serialized) throws GabbyException {
+        if (serialized.length != 4) {
+            throw new GabbyException("Saved task does not have the required number of arguments!");
+        }
+
+        DeadlineTask task = new DeadlineTask(serialized[2], serialized[3]);
+
+        if (serialized[1].equals("1")) {
+            task.markAsDone();
+        } else if (!serialized[1].equals("0")) {
+            throw new GabbyException("Saved task contains invalid symbol for isDone!");
+        }
+
+        return task;
+    }
+
+    @Override
+    public String serialize() {
+        return String.format("D | %s | %s | %s", super.isDone ? 1 : 0, super.description, this.by);
+    }
+
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), this.by);
