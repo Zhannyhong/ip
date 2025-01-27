@@ -149,6 +149,7 @@ public class Gabby {
 
     public static void main(String[] args) {
         Gabby.greet();
+        Gabby.loadTaskList();
 
         Scanner reader = new Scanner(System.in);
         String[] input = reader.nextLine().strip().split(" ", 2);
@@ -168,21 +169,27 @@ public class Gabby {
                         break;
                     case "MARK":
                         Gabby.markTask(Gabby.extractTaskID(arg));
+                        Gabby.saveTaskList();
                         break;
                     case "UNMARK":
                         Gabby.unmarkTask(Gabby.extractTaskID(arg));
+                        Gabby.saveTaskList();
                         break;
                     case "DELETE":
                         Gabby.deleteTask(Gabby.extractTaskID(arg));
+                        Gabby.saveTaskList();
                         break;
                     case "TODO":
                         Gabby.addTask(TodoTask.parseArgs(arg));
+                        Gabby.saveTaskList();
                         break;
                     case "DEADLINE":
                         Gabby.addTask(DeadlineTask.parseArgs(arg));
+                        Gabby.saveTaskList();
                         break;
                     case "EVENT":
                         Gabby.addTask(EventTask.parseArgs(arg));
+                        Gabby.saveTaskList();
                         break;
                     default:
                         Gabby.displayMsg("Sorry! I don't understand what you just said =(");
