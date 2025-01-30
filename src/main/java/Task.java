@@ -1,4 +1,8 @@
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
+    protected static final DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("yyyy-M-d HHmm");
+    protected static final DateTimeFormatter dtDisplay = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm");
     protected String description;
     protected boolean isDone;
 
