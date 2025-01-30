@@ -33,6 +33,10 @@ public class EventTask extends Task {
             throw new GabbyException("Datetime provided is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
         }
 
+        if (to.isBefore(from)) {
+            throw new GabbyException("Event end time cannot be before start time!");
+        }
+
         return new EventTask(parsed.group(1), from, to);
     }
 
@@ -48,6 +52,10 @@ public class EventTask extends Task {
             to = LocalDateTime.parse(serialized[4], Task.dtFormat);
         } catch (DateTimeParseException err) {
             throw new GabbyException("Datetime provided is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
+        }
+
+        if (to.isBefore(from)) {
+            throw new GabbyException("Event end time cannot be before start time!");
         }
 
         EventTask task = new EventTask(serialized[2], from, to);
