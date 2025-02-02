@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringJoiner;
@@ -39,17 +42,42 @@ public class Gabby {
                 task, taskList.size(), taskList.size() == 1 ? "" : "s"));
     }
 
-    private static void listTasks() {
+    private static void listTasks(String args) {
         if (taskList.isEmpty()) {
             Gabby.displayMsg("You have no tasks in your list!");
             return;
         }
 
         StringJoiner msg = new StringJoiner("\n");
-        msg.add("Here are the tasks in your list:");
+        Task[] filteredList;
 
-        for (int i = 0; i < taskList.size(); i++) {
-            msg.add(String.format("%d.%s", i + 1, taskList.get(i)));
+        if (args.isEmpty()) {
+            msg.add("Here are all the tasks in your list:");
+            filteredList = taskList.toArray(Task[]::new);
+        } else {
+            LocalDate filterDate;
+            try {
+                filterDate = LocalDate.parse(args, DateTimeFormatter.ISO_LOCAL_DATE);
+            } catch (DateTimeParseException err) {
+                msg.add("Date provided is in the wrong format. Expected: yyyy-mm-dd (e.g. 2001-11-23)");
+                Gabby.displayMsg(msg.toString());
+                return;
+            }
+
+            filteredList = taskList.stream()
+                    .filter(task -> filterDate.query(task::isDateInRange))
+                    .toArray(Task[]::new);
+
+            if (filteredList.length == 0) {
+                Gabby.displayMsg("You have no tasks on " + filterDate.format(DateTimeFormatter.ISO_LOCAL_DATE) + "!");
+                return;
+            }
+
+            msg.add("Here are the tasks in your list on " + filterDate.format(DateTimeFormatter.ISO_LOCAL_DATE) + ":");
+        }
+
+        for (int i = 0; i < filteredList.length; i++) {
+            msg.add(String.format("%d.%s", i + 1, filteredList[i]));
         }
 
         Gabby.displayMsg(msg.toString());
@@ -165,7 +193,7 @@ public class Gabby {
                         Gabby.bye();
                         return;
                     case "LIST":
-                        Gabby.listTasks();
+                        Gabby.listTasks(arg);
                         break;
                     case "MARK":
                         Gabby.markTask(Gabby.extractTaskID(arg));

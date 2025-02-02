@@ -1,4 +1,9 @@
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+
 public abstract class Task {
+    protected static final DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    protected static final DateTimeFormatter dtDisplay = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm");
     protected String description;
     protected boolean isDone;
 
@@ -20,6 +25,8 @@ public abstract class Task {
     }
 
     public abstract String serialize();
+
+    public abstract boolean isDateInRange(TemporalAccessor date);
 
     @Override
     public String toString() {

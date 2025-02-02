@@ -1,12 +1,16 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EventTask extends Task {
     private static final Pattern eventPattern = Pattern.compile("(.+) /from (.+) /to (.+)");
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
-    public EventTask(String description, String from, String to) {
+    public EventTask(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -19,10 +23,23 @@ public class EventTask extends Task {
 
         Matcher parsed = eventPattern.matcher(args);
         if (!parsed.matches()) {
-            throw new GabbyException("Events have to be in the format: event <description> /from <date> /to <date>");
+            throw new GabbyException("Events have to be in the format: event <description> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm>");
         }
 
-        return new EventTask(parsed.group(1), parsed.group(2), parsed.group(3));
+        LocalDateTime from;
+        LocalDateTime to;
+        try {
+            from = LocalDateTime.parse(parsed.group(2), Task.dtFormat);
+            to = LocalDateTime.parse(parsed.group(3), Task.dtFormat);
+        } catch (DateTimeParseException err) {
+            throw new GabbyException("Datetime provided is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
+        }
+
+        if (to.isBefore(from)) {
+            throw new GabbyException("Event end time cannot be before start time!");
+        }
+
+        return new EventTask(parsed.group(1), from, to);
     }
 
     public static EventTask deserialize(String[] serialized) throws GabbyException {
@@ -30,7 +47,20 @@ public class EventTask extends Task {
             throw new GabbyException("Saved task does not have the required number of arguments!");
         }
 
-        EventTask task = new EventTask(serialized[2], serialized[3], serialized[4]);
+        LocalDateTime from;
+        LocalDateTime to;
+        try {
+            from = LocalDateTime.parse(serialized[3], Task.dtFormat);
+            to = LocalDateTime.parse(serialized[4], Task.dtFormat);
+        } catch (DateTimeParseException err) {
+            throw new GabbyException("Datetime provided is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
+        }
+
+        if (to.isBefore(from)) {
+            throw new GabbyException("Event end time cannot be before start time!");
+        }
+
+        EventTask task = new EventTask(serialized[2], from, to);
 
         if (serialized[1].equals("1")) {
             task.markAsDone();
@@ -43,11 +73,17 @@ public class EventTask extends Task {
 
     @Override
     public String serialize() {
-        return String.format("E | %s | %s | %s | %s", super.isDone ? 1 : 0, super.description, this.from, this.to);
+        return String.format("E | %s | %s | %s | %s", super.isDone ? 1 : 0, super.description, Task.dtFormat.format(this.from), Task.dtFormat.format(this.to));
+    }
+
+    @Override
+    public boolean isDateInRange(TemporalAccessor date) {
+        LocalDate queryDate = LocalDate.from(date);
+        return !this.from.toLocalDate().isAfter(queryDate) && !this.to.toLocalDate().isBefore(queryDate);
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from, this.to);
+        return String.format("[E]%s (from: %s -- to: %s)", super.toString(), Task.dtDisplay.format(this.from), Task.dtDisplay.format(this.to));
     }
 }
