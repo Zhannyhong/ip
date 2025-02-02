@@ -1,5 +1,7 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -58,6 +60,11 @@ public class DeadlineTask extends Task {
     @Override
     public String serialize() {
         return String.format("D | %s | %s | %s", super.isDone ? 1 : 0, super.description, Task.dtFormat.format(this.by));
+    }
+
+    @Override
+    public boolean isDateInRange(TemporalAccessor date) {
+        return this.by.toLocalDate().isEqual(LocalDate.from(date));
     }
 
     @Override

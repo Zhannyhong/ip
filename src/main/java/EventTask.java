@@ -1,5 +1,7 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,6 +74,12 @@ public class EventTask extends Task {
     @Override
     public String serialize() {
         return String.format("E | %s | %s | %s | %s", super.isDone ? 1 : 0, super.description, Task.dtFormat.format(this.from), Task.dtFormat.format(this.to));
+    }
+
+    @Override
+    public boolean isDateInRange(TemporalAccessor date) {
+        LocalDate queryDate = LocalDate.from(date);
+        return !this.from.toLocalDate().isAfter(queryDate) && !this.to.toLocalDate().isBefore(queryDate);
     }
 
     @Override

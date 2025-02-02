@@ -1,3 +1,5 @@
+import java.time.temporal.TemporalAccessor;
+
 public class TodoTask extends Task {
     public TodoTask(String description) {
         super(description);
@@ -30,6 +32,11 @@ public class TodoTask extends Task {
     @Override
     public String serialize() {
         return String.format("T | %s | %s", super.isDone ? 1 : 0, super.description);
+    }
+
+    @Override
+    public boolean isDateInRange(TemporalAccessor date) {
+        return false;
     }
 
     @Override
