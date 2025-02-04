@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Gabby {
     private final Storage storage;
-    private TaskList tasks;
     private final Ui ui;
+    private TaskList tasks;
 
     public Gabby(String filePath) {
         this.ui = new Ui();

@@ -21,18 +21,30 @@ public class TaskList {
         return this.taskList.add(task);
     }
 
-    public Task deleteTask(int taskID) {
+    public Task deleteTask(int taskID) throws GabbyException {
+        if (!isTaskIDValid(taskID)) {
+            throw new GabbyException("Task ID is not in your list!");
+        }
+
         return taskList.remove(taskID);
     }
 
-    public Task markTask(int taskID) {
+    public Task markTask(int taskID) throws GabbyException {
+        if (!isTaskIDValid(taskID)) {
+            throw new GabbyException("Task ID is not in your list!");
+        }
+
         Task task = taskList.get(taskID);
         task.markAsDone();
 
         return task;
     }
 
-    public Task unmarkTask(int taskID) {
+    public Task unmarkTask(int taskID) throws GabbyException {
+        if (!isTaskIDValid(taskID)) {
+            throw new GabbyException("Task ID is not in your list!");
+        }
+
         Task task = taskList.get(taskID);
         task.markNotDone();
 
@@ -53,6 +65,10 @@ public class TaskList {
         }
 
         return serialized.toString();
+    }
+
+    private boolean isTaskIDValid(int taskID) {
+        return taskID >= 0 && taskID < taskList.size();
     }
 
     @Override

@@ -5,26 +5,17 @@ public class Parser {
         String command = args[0].toUpperCase();
         String arg = args.length > 1 ? args[1] : "";
 
-        switch (command) {
-            case "BYE":
-                return new ByeCommand();
-            case "LIST":
-                return new ListCommand(arg);
-            case "MARK":
-                return new MarkCommand(parseTaskID(arg));
-            case "UNMARK":
-                return new UnmarkCommand(parseTaskID(arg));
-            case "DELETE":
-                return new DeleteCommand(parseTaskID(arg));
-            case "TODO":
-                return new TodoCommand(arg);
-            case "DEADLINE":
-                return new DeadlineCommand(arg);
-            case "EVENT":
-                return new EventCommand(arg);
-            default:
-                throw new GabbyException("Sorry! I don't understand what you just said =(");
-        }
+        return switch (command) {
+            case "BYE" -> new ByeCommand();
+            case "LIST" -> new ListCommand(arg);
+            case "MARK" -> new MarkCommand(parseTaskID(arg));
+            case "UNMARK" -> new UnmarkCommand(parseTaskID(arg));
+            case "DELETE" -> new DeleteCommand(parseTaskID(arg));
+            case "TODO" -> new TodoCommand(arg);
+            case "DEADLINE" -> new DeadlineCommand(arg);
+            case "EVENT" -> new EventCommand(arg);
+            default -> throw new GabbyException("Sorry! I don't understand what you just said =(");
+        };
     }
 
     private static int parseTaskID(String arg) throws GabbyException {

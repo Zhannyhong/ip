@@ -25,21 +25,23 @@ public class ListCommand extends Command {
 
         if (filterDate == null) {
             ui.showMsg("Here are all the tasks in your list:\n" + tasks);
-        } else {
-            Task[] filteredTasks = tasks.filterTasksByDate(this.filterDate);
-
-            if (filteredTasks.length == 0) {
-                ui.showMsg("You have no tasks on " + filterDate.format(DateTimeFormatter.ISO_LOCAL_DATE) + "!");
-            } else {
-                StringJoiner msg = new StringJoiner("\n");
-                msg.add("Here are the tasks in your list on " + filterDate.format(DateTimeFormatter.ISO_LOCAL_DATE) + ":");
-
-                for (int i = 0; i < filteredTasks.length; i++) {
-                    msg.add(String.format("%d.%s", i + 1, filteredTasks[i]));
-                }
-
-                ui.showMsg(msg.toString());
-            }
+            return;
         }
+
+        Task[] filteredTasks = tasks.filterTasksByDate(this.filterDate);
+
+        if (filteredTasks.length == 0) {
+            ui.showMsg("You have no tasks on " + filterDate.format(DateTimeFormatter.ISO_LOCAL_DATE) + "!");
+            return;
+        }
+
+        StringJoiner msg = new StringJoiner("\n");
+        msg.add("Here are the tasks in your list on " + filterDate.format(DateTimeFormatter.ISO_LOCAL_DATE) + ":");
+
+        for (int i = 0; i < filteredTasks.length; i++) {
+            msg.add(String.format("%d.%s", i + 1, filteredTasks[i]));
+        }
+
+        ui.showMsg(msg.toString());
     }
 }
