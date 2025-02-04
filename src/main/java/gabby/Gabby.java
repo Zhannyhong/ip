@@ -1,3 +1,8 @@
+package gabby;
+
+import gabby.command.Command;
+import gabby.task.TaskList;
+
 import java.util.Scanner;
 
 public class Gabby {
@@ -31,7 +36,7 @@ public class Gabby {
                     Command c = Parser.parse(input);
                     c.execute(this.tasks, this.ui, this.storage);
 
-                    if (c.isExit) {
+                    if (c.isExit()) {
                         break;
                     }
                 } catch (GabbyException e) {

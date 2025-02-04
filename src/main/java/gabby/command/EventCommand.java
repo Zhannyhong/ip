@@ -1,3 +1,11 @@
+package gabby.command;
+
+import gabby.GabbyException;
+import gabby.Storage;
+import gabby.Ui;
+import gabby.task.EventTask;
+import gabby.task.TaskList;
+
 public class EventCommand extends Command {
     private final EventTask task;
 
