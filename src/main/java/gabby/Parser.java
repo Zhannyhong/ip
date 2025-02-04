@@ -1,3 +1,7 @@
+package gabby;
+
+import gabby.command.*;
+
 public class Parser {
 
     public static Command parse(String input) throws GabbyException {

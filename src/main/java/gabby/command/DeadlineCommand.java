@@ -1,8 +1,16 @@
-public class TodoCommand extends Command {
-    private final TodoTask task;
+package gabby.command;
 
-    public TodoCommand(String args) throws GabbyException {
-        this.task = TodoTask.parseArgs(args);
+import gabby.GabbyException;
+import gabby.Storage;
+import gabby.Ui;
+import gabby.task.DeadlineTask;
+import gabby.task.TaskList;
+
+public class DeadlineCommand extends Command {
+    private final DeadlineTask task;
+
+    public DeadlineCommand(String args) throws GabbyException {
+        this.task = DeadlineTask.parseArgs(args);
     }
 
     @Override

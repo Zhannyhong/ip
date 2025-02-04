@@ -1,3 +1,7 @@
+package gabby.task;
+
+import gabby.GabbyException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.StringJoiner;
@@ -23,7 +27,7 @@ public class TaskList {
 
     public Task deleteTask(int taskID) throws GabbyException {
         if (!isTaskIDValid(taskID)) {
-            throw new GabbyException("Task ID is not in your list!");
+            throw new GabbyException("gabby.task.Task ID is not in your list!");
         }
 
         return taskList.remove(taskID);
@@ -31,7 +35,7 @@ public class TaskList {
 
     public Task markTask(int taskID) throws GabbyException {
         if (!isTaskIDValid(taskID)) {
-            throw new GabbyException("Task ID is not in your list!");
+            throw new GabbyException("gabby.task.Task ID is not in your list!");
         }
 
         Task task = taskList.get(taskID);
@@ -42,7 +46,7 @@ public class TaskList {
 
     public Task unmarkTask(int taskID) throws GabbyException {
         if (!isTaskIDValid(taskID)) {
-            throw new GabbyException("Task ID is not in your list!");
+            throw new GabbyException("gabby.task.Task ID is not in your list!");
         }
 
         Task task = taskList.get(taskID);

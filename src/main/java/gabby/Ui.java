@@ -1,3 +1,5 @@
+package gabby;
+
 public class Ui {
     public static final String LOGO = """
               _____     __   __
