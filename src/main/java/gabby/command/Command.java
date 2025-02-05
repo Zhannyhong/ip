@@ -5,7 +5,7 @@ import gabby.Storage;
 import gabby.Ui;
 import gabby.task.TaskList;
 
-abstract public class Command {
+public abstract class Command {
     protected boolean isExit = false;
 
     public boolean isExit() {

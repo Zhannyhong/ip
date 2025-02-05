@@ -1,13 +1,17 @@
 package gabby;
 
-import gabby.task.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import gabby.task.DeadlineTask;
+import gabby.task.EventTask;
+import gabby.task.Task;
+import gabby.task.TaskList;
+import gabby.task.TodoTask;
 
 public class Storage {
     private String taskStorePath = "./data/tasks.txt";
@@ -34,18 +38,10 @@ public class Storage {
 
                 try {
                     switch (serialized[0]) {
-                        case "T":
-                            taskList.add(TodoTask.deserialize(serialized));
-                            break;
-                        case "D":
-                            taskList.add(DeadlineTask.deserialize(serialized));
-                            break;
-                        case "E":
-                            taskList.add(EventTask.deserialize(serialized));
-                            break;
-                        default:
-                            // Silently ignore tasks that are not in the correct format
-                            break;
+                    case "T" -> taskList.add(TodoTask.deserialize(serialized));
+                    case "D" -> taskList.add(DeadlineTask.deserialize(serialized));
+                    case "E" -> taskList.add(EventTask.deserialize(serialized));
+                    default -> { } // Silently ignore tasks that are not in the correct format
                     }
                 } catch (GabbyException err) {
                     // Silently ignore tasks that are not in the correct format

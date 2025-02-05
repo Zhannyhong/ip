@@ -1,7 +1,5 @@
 package gabby.task;
 
-import gabby.GabbyException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -9,8 +7,10 @@ import java.time.temporal.TemporalAccessor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import gabby.GabbyException;
+
 public class EventTask extends Task {
-    private static final Pattern eventPattern = Pattern.compile("(.+) /from (.+) /to (.+)");
+    private static final Pattern EVENT_PATTERN = Pattern.compile("(.+) /from (.+) /to (.+)");
     protected LocalDateTime from;
     protected LocalDateTime to;
 
@@ -25,18 +25,21 @@ public class EventTask extends Task {
             throw new GabbyException("Oh no! The description of an event cannot be empty!");
         }
 
-        Matcher parsed = eventPattern.matcher(args);
+        Matcher parsed = EVENT_PATTERN.matcher(args);
         if (!parsed.matches()) {
-            throw new GabbyException("Events have to be in the format: event <description> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm>");
+            throw new GabbyException(
+                    "Events have to be in the format: event <description> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm>"
+            );
         }
 
         LocalDateTime from;
         LocalDateTime to;
         try {
-            from = LocalDateTime.parse(parsed.group(2), Task.dtFormat);
-            to = LocalDateTime.parse(parsed.group(3), Task.dtFormat);
+            from = LocalDateTime.parse(parsed.group(2), Task.DT_FORMAT);
+            to = LocalDateTime.parse(parsed.group(3), Task.DT_FORMAT);
         } catch (DateTimeParseException err) {
-            throw new GabbyException("Datetime provided is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
+            throw new GabbyException(
+                    "Datetime provided is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
         }
 
         if (to.isBefore(from)) {
@@ -54,10 +57,11 @@ public class EventTask extends Task {
         LocalDateTime from;
         LocalDateTime to;
         try {
-            from = LocalDateTime.parse(serialized[3], Task.dtFormat);
-            to = LocalDateTime.parse(serialized[4], Task.dtFormat);
+            from = LocalDateTime.parse(serialized[3], Task.DT_FORMAT);
+            to = LocalDateTime.parse(serialized[4], Task.DT_FORMAT);
         } catch (DateTimeParseException err) {
-            throw new GabbyException("Datetime provided is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
+            throw new GabbyException(
+                    "Datetime provided is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
         }
 
         if (to.isBefore(from)) {
@@ -77,7 +81,13 @@ public class EventTask extends Task {
 
     @Override
     public String serialize() {
-        return String.format("E | %s | %s | %s | %s", super.isDone ? 1 : 0, super.description, Task.dtFormat.format(this.from), Task.dtFormat.format(this.to));
+        return String.format(
+                "E | %s | %s | %s | %s",
+                super.isDone ? 1 : 0,
+                super.description,
+                Task.DT_FORMAT.format(this.from),
+                Task.DT_FORMAT.format(this.to)
+        );
     }
 
     @Override
@@ -88,6 +98,11 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s -- to: %s)", super.toString(), Task.dtDisplay.format(this.from), Task.dtDisplay.format(this.to));
+        return String.format(
+                "[E]%s (from: %s -- to: %s)",
+                super.toString(),
+                Task.DT_DISPLAY.format(this.from),
+                Task.DT_DISPLAY.format(this.to)
+        );
     }
 }

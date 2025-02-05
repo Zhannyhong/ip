@@ -1,8 +1,8 @@
 package gabby.task;
 
-import gabby.GabbyException;
-
 import java.time.temporal.TemporalAccessor;
+
+import gabby.GabbyException;
 
 public class TodoTask extends Task {
     public TodoTask(String description) {
