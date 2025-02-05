@@ -4,11 +4,21 @@ import gabby.GabbyException;
 
 import java.time.temporal.TemporalAccessor;
 
+/**
+ * Represents a todo task.
+ */
 public class TodoTask extends Task {
     public TodoTask(String description) {
         super(description);
     }
 
+    /**
+     * Parses the arguments to create a new todo task.
+     *
+     * @param args The arguments to create the todo task.
+     * @return The new todo task.
+     * @throws GabbyException If the arguments are invalid.
+     */
     public static TodoTask parseArgs(String args) throws GabbyException {
         if (args.isEmpty()) {
             throw new GabbyException("Oh no! The description of a todo cannot be empty!");
@@ -17,6 +27,13 @@ public class TodoTask extends Task {
         return new TodoTask(args);
     }
 
+    /**
+     * Deserializes a saved todo task.
+     *
+     * @param serialized The serialized task.
+     * @return The saved todo task.
+     * @throws GabbyException If the serialized task is invalid.
+     */
     public static TodoTask deserialize(String[] serialized) throws GabbyException {
         if (serialized.length != 3) {
             throw new GabbyException("Saved task does not have the required number of arguments!");

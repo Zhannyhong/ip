@@ -6,9 +6,17 @@ import gabby.Ui;
 import gabby.task.Task;
 import gabby.task.TaskList;
 
+/**
+ * Represents a command to unmark a task to be not done.
+ */
 public class UnmarkCommand extends Command {
     private final int taskID;
 
+    /**
+     * Creates a new unmark command.
+     *
+     * @param taskID The ID of the task to unmark.
+     */
     public UnmarkCommand(int taskID) {
         this.taskID = taskID;
     }

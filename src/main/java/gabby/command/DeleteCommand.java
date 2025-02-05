@@ -6,9 +6,17 @@ import gabby.Ui;
 import gabby.task.Task;
 import gabby.task.TaskList;
 
+/**
+ * Represents a command to delete a task.
+ */
 public class DeleteCommand extends Command {
     private final int taskID;
 
+    /**
+     * Creates a new delete command.
+     *
+     * @param taskID The ID of the task to delete.
+     */
     public DeleteCommand(int taskID) {
         this.taskID = taskID;
     }

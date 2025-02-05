@@ -9,16 +9,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage class that handles loading and saving of tasks.
+ */
 public class Storage {
     private String taskStorePath = "./data/tasks.txt";
 
     public Storage() {
     }
 
+    /**
+     * Creates a new storage class with the specified file path.
+     *
+     * @param filePath The file path to save tasks to.
+     */
     public Storage(String filePath) {
         this.taskStorePath = filePath;
     }
 
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return The list of tasks loaded from the file.
+     */
     public ArrayList<Task> load() {
         File file = new File(this.taskStorePath);
         ArrayList<Task> taskList = new ArrayList<>();
@@ -58,6 +71,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves tasks to the storage file.
+     *
+     * @param taskList The list of tasks to save.
+     * @throws GabbyException If there is an error writing to the file.
+     */
     public void save(TaskList taskList) throws GabbyException {
         File file = new File(this.taskStorePath);
 

@@ -6,9 +6,18 @@ import gabby.Ui;
 import gabby.task.EventTask;
 import gabby.task.TaskList;
 
+/**
+ * Represents a command to add an event task.
+ */
 public class EventCommand extends Command {
     private final EventTask task;
 
+    /**
+     * Creates a new event command.
+     *
+     * @param args The arguments to create the event task.
+     * @throws GabbyException If the arguments are invalid.
+     */
     public EventCommand(String args) throws GabbyException {
         this.task = EventTask.parseArgs(args);
     }

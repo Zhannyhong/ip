@@ -6,9 +6,17 @@ import gabby.Ui;
 import gabby.task.Task;
 import gabby.task.TaskList;
 
+/**
+ * Represents a command to mark a task as done.
+ */
 public class MarkCommand extends Command {
     private final int taskID;
 
+    /**
+     * Creates a new mark command.
+     *
+     * @param taskID The ID of the task to mark.
+     */
     public MarkCommand(int taskID) {
         this.taskID = taskID;
     }

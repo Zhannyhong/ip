@@ -5,11 +5,19 @@ import gabby.task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Represents the main class of the program.
+ */
 public class Gabby {
     private final Storage storage;
     private final Ui ui;
     private TaskList tasks;
 
+    /**
+     * Creates a new Gabby instance.
+     *
+     * @param filePath The file path to save tasks to.
+     */
     public Gabby(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -25,6 +33,9 @@ public class Gabby {
         new Gabby("data/tasks.txt").run();
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         this.ui.showWelcome();
 

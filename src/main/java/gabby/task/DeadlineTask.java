@@ -9,15 +9,31 @@ import java.time.temporal.TemporalAccessor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class DeadlineTask extends Task {
     private static final Pattern deadlinePattern = Pattern.compile("(.+) /by (.+)");
     protected LocalDateTime by;
 
+    /**
+     * Creates a new deadline task.
+     *
+     * @param description The description of the deadline task.
+     * @param by The deadline of the task.
+     */
     public DeadlineTask(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
+    /**
+     * Parses the arguments to create a new deadline task.
+     *
+     * @param args The arguments to create the deadline task.
+     * @return The new deadline task.
+     * @throws GabbyException If the arguments are invalid.
+     */
     public static DeadlineTask parseArgs(String args) throws GabbyException {
         if (args.isEmpty()) {
             throw new GabbyException("Oh no! The description of a deadline cannot be empty!");
@@ -38,6 +54,13 @@ public class DeadlineTask extends Task {
         return new DeadlineTask(parsed.group(1), by);
     }
 
+    /**
+     * Deserializes a saved deadline task.
+     *
+     * @param serialized The serialized task.
+     * @return The deserialized deadline task.
+     * @throws GabbyException If the serialized task is invalid.
+     */
     public static DeadlineTask deserialize(String[] serialized) throws GabbyException {
         if (serialized.length != 4) {
             throw new GabbyException("Saved task does not have the required number of arguments!");
