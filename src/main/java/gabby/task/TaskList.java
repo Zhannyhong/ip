@@ -1,19 +1,20 @@
 package gabby.task;
 
-import gabby.GabbyException;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
+import gabby.GabbyException;
+
 public class TaskList {
-    private final ArrayList<Task> taskList;
+    private final List<Task> taskList;
 
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
-    public TaskList(ArrayList<Task> taskList) {
+    public TaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
 
@@ -55,10 +56,22 @@ public class TaskList {
         return task;
     }
 
-    public Task[] filterTasksByDate(LocalDate filterDate) {
+    public List<Task> filterTasksByDate(LocalDate filterDate) {
         return taskList.stream()
                 .filter(task -> filterDate.query(task::isDateInRange))
-                .toArray(Task[]::new);
+                .toList();
+    }
+
+    /**
+     * Filters tasks where the task description contains the keyword.
+     *
+     * @param keyword Keyword to filter tasks by.
+     * @return List of tasks that contain the keyword.
+     */
+    public List<Task> filterTasksByKeyword(String keyword) {
+        return taskList.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .toList();
     }
 
     public String serialize() {

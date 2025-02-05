@@ -18,6 +18,7 @@ public class Parser {
             case "TODO" -> new TodoCommand(arg);
             case "DEADLINE" -> new DeadlineCommand(arg);
             case "EVENT" -> new EventCommand(arg);
+            case "FIND" -> new FindCommand(arg);
             default -> throw new GabbyException("Sorry! I don't understand what you just said =(");
         };
     }

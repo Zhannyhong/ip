@@ -18,6 +18,15 @@ public abstract class Task {
         return this.isDone ? "X" : " ";
     }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return Description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
