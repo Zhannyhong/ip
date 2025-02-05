@@ -5,6 +5,7 @@ import gabby.command.Command;
 import gabby.command.DeadlineCommand;
 import gabby.command.DeleteCommand;
 import gabby.command.EventCommand;
+import gabby.command.FindCommand;
 import gabby.command.ListCommand;
 import gabby.command.MarkCommand;
 import gabby.command.TodoCommand;
