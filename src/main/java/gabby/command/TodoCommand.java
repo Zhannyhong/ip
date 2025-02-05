@@ -6,9 +6,18 @@ import gabby.Ui;
 import gabby.task.TaskList;
 import gabby.task.TodoTask;
 
+/**
+ * Represents a command to add a todo task.
+ */
 public class TodoCommand extends Command {
     private final TodoTask task;
 
+    /**
+     * Creates a new todo command.
+     *
+     * @param args The arguments to create the todo task.
+     * @throws GabbyException If the arguments are invalid.
+     */
     public TodoCommand(String args) throws GabbyException {
         this.task = TodoTask.parseArgs(args);
     }

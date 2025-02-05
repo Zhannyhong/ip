@@ -6,9 +6,18 @@ import gabby.Ui;
 import gabby.task.DeadlineTask;
 import gabby.task.TaskList;
 
+/**
+ * Represents a command to add a deadline task.
+ */
 public class DeadlineCommand extends Command {
     private final DeadlineTask task;
 
+    /**
+     * Creates a new deadline command.
+     *
+     * @param args The arguments to create the deadline task.
+     * @throws GabbyException If the arguments are invalid.
+     */
     public DeadlineCommand(String args) throws GabbyException {
         this.task = DeadlineTask.parseArgs(args);
     }

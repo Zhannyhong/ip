@@ -11,9 +11,18 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.StringJoiner;
 
+/**
+ * Represents a command to list all tasks.
+ */
 public class ListCommand extends Command {
     LocalDate filterDate = null;
 
+    /**
+     * Creates a new list command.
+     *
+     * @param args The arguments provided by the user.
+     * @throws GabbyException If the date provided is in the wrong format.
+     */
     public ListCommand(String args) throws GabbyException {
         if (!args.isEmpty()) {
             try {

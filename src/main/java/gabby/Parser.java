@@ -2,8 +2,18 @@ package gabby;
 
 import gabby.command.*;
 
+/**
+ * Represents a parser that parses user input into commands.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input into a command.
+     *
+     * @param input The user input.
+     * @return The command
+     * @throws GabbyException If the input is invalid.
+     */
     public static Command parse(String input) throws GabbyException {
         String[] args = input.split(" ", 2);
         String command = args[0].toUpperCase();
@@ -22,6 +32,13 @@ public class Parser {
         };
     }
 
+    /**
+     * Parses the task ID from the user input.
+     *
+     * @param arg The user input.
+     * @return The task ID.
+     * @throws GabbyException If the task ID is invalid.
+     */
     private static int parseTaskID(String arg) throws GabbyException {
         if (arg.isEmpty()) {
             throw new GabbyException("I need to know the ID of the task!");

@@ -9,17 +9,34 @@ import java.time.temporal.TemporalAccessor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents an event task with a start and end deadline.
+ */
 public class EventTask extends Task {
     private static final Pattern eventPattern = Pattern.compile("(.+) /from (.+) /to (.+)");
     protected LocalDateTime from;
     protected LocalDateTime to;
 
+    /**
+     * Creates a new event task.
+     *
+     * @param description The description of the event task.
+     * @param from The start time of the event.
+     * @param to The end time of the event.
+     */
     public EventTask(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Parses the arguments to create a new event task.
+     *
+     * @param args The arguments to create the event task.
+     * @return The new event task.
+     * @throws GabbyException If the arguments are invalid.
+     */
     public static EventTask parseArgs(String args) throws GabbyException {
         if (args.isEmpty()) {
             throw new GabbyException("Oh no! The description of an event cannot be empty!");
@@ -46,6 +63,13 @@ public class EventTask extends Task {
         return new EventTask(parsed.group(1), from, to);
     }
 
+    /**
+     * Deserializes a saved event task.
+     *
+     * @param serialized The serialized task.
+     * @return The deserialized event task.
+     * @throws GabbyException If the serialized task is invalid.
+     */
     public static EventTask deserialize(String[] serialized) throws GabbyException {
         if (serialized.length != 5) {
             throw new GabbyException("Saved task does not have the required number of arguments!");
