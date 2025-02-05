@@ -2,6 +2,7 @@ package gabby.task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
 import gabby.GabbyException;
@@ -10,7 +11,7 @@ import gabby.GabbyException;
  * Represents a list of tasks.
  */
 public class TaskList {
-    private final ArrayList<Task> taskList;
+    private final List<Task> taskList;
 
     /**
      * Creates a new task list.
@@ -24,7 +25,7 @@ public class TaskList {
      *
      * @param taskList The existing tasks.
      */
-    public TaskList(ArrayList<Task> taskList) {
+    public TaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
 
@@ -102,12 +103,24 @@ public class TaskList {
      * Filters tasks by a date.
      *
      * @param filterDate The date to filter tasks by.
-     * @return The tasks that match the date.
+     * @return List of tasks that match the date.
      */
-    public Task[] filterTasksByDate(LocalDate filterDate) {
+    public List<Task> filterTasksByDate(LocalDate filterDate) {
         return taskList.stream()
                 .filter(task -> filterDate.query(task::isDateInRange))
-                .toArray(Task[]::new);
+                .toList();
+    }
+
+    /**
+     * Filters tasks where the task description contains the keyword.
+     *
+     * @param keyword Keyword to filter tasks by.
+     * @return List of tasks that contain the keyword.
+     */
+    public List<Task> filterTasksByKeyword(String keyword) {
+        return taskList.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .toList();
     }
 
     /**

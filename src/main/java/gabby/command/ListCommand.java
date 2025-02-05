@@ -3,14 +3,11 @@ package gabby.command;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.StringJoiner;
 
 import gabby.GabbyException;
 import gabby.Storage;
 import gabby.Ui;
-import gabby.task.Task;
 import gabby.task.TaskList;
-
 
 /**
  * Represents a command to list all tasks.
@@ -42,25 +39,18 @@ public class ListCommand extends Command {
             return;
         }
 
-        if (filterDate == null) {
+        if (this.filterDate == null) {
             ui.showMsg("Here are all the tasks in your list:\n" + tasks);
             return;
         }
 
-        Task[] filteredTasks = tasks.filterTasksByDate(this.filterDate);
+        TaskList filteredTasks = new TaskList(tasks.filterTasksByDate(this.filterDate));
+        String dateStr = filterDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
 
-        if (filteredTasks.length == 0) {
-            ui.showMsg("You have no tasks on " + filterDate.format(DateTimeFormatter.ISO_LOCAL_DATE) + "!");
-            return;
+        if (filteredTasks.size() == 0) {
+            ui.showMsg("You have no tasks on " + dateStr + "!");
+        } else {
+            ui.showMsg("Here are the tasks in your list on " + dateStr + ":\n" + filteredTasks);
         }
-
-        StringJoiner msg = new StringJoiner("\n");
-        msg.add("Here are the tasks in your list on " + filterDate.format(DateTimeFormatter.ISO_LOCAL_DATE) + ":");
-
-        for (int i = 0; i < filteredTasks.length; i++) {
-            msg.add(String.format("%d.%s", i + 1, filteredTasks[i]));
-        }
-
-        ui.showMsg(msg.toString());
     }
 }
