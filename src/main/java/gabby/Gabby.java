@@ -1,9 +1,9 @@
 package gabby;
 
+import java.util.Scanner;
+
 import gabby.command.Command;
 import gabby.task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * Represents the main class of the program.

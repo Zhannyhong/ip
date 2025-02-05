@@ -1,10 +1,10 @@
 package gabby.task;
 
-import gabby.GabbyException;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.StringJoiner;
+
+import gabby.GabbyException;
 
 /**
  * Represents a list of tasks.
@@ -55,7 +55,7 @@ public class TaskList {
      * @throws GabbyException If the task ID is invalid.
      */
     public Task deleteTask(int taskID) throws GabbyException {
-        if (!isTaskIDValid(taskID)) {
+        if (!isTaskIdValid(taskID)) {
             throw new GabbyException("gabby.task.Task ID is not in your list!");
         }
 
@@ -70,7 +70,7 @@ public class TaskList {
      * @throws GabbyException If the task ID is invalid.
      */
     public Task markTask(int taskID) throws GabbyException {
-        if (!isTaskIDValid(taskID)) {
+        if (!isTaskIdValid(taskID)) {
             throw new GabbyException("gabby.task.Task ID is not in your list!");
         }
 
@@ -88,7 +88,7 @@ public class TaskList {
      * @throws GabbyException If the task ID is invalid.
      */
     public Task unmarkTask(int taskID) throws GabbyException {
-        if (!isTaskIDValid(taskID)) {
+        if (!isTaskIdValid(taskID)) {
             throw new GabbyException("gabby.task.Task ID is not in your list!");
         }
 
@@ -131,7 +131,7 @@ public class TaskList {
      * @param taskID The task ID to check.
      * @return true if the task ID is valid, false otherwise.
      */
-    private boolean isTaskIDValid(int taskID) {
+    private boolean isTaskIdValid(int taskID) {
         return taskID >= 0 && taskID < taskList.size();
     }
 

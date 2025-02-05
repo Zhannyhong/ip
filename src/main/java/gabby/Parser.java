@@ -1,6 +1,14 @@
 package gabby;
 
-import gabby.command.*;
+import gabby.command.ByeCommand;
+import gabby.command.Command;
+import gabby.command.DeadlineCommand;
+import gabby.command.DeleteCommand;
+import gabby.command.EventCommand;
+import gabby.command.ListCommand;
+import gabby.command.MarkCommand;
+import gabby.command.TodoCommand;
+import gabby.command.UnmarkCommand;
 
 /**
  * Represents a parser that parses user input into commands.
@@ -20,15 +28,15 @@ public class Parser {
         String arg = args.length > 1 ? args[1] : "";
 
         return switch (command) {
-            case "BYE" -> new ByeCommand();
-            case "LIST" -> new ListCommand(arg);
-            case "MARK" -> new MarkCommand(parseTaskID(arg));
-            case "UNMARK" -> new UnmarkCommand(parseTaskID(arg));
-            case "DELETE" -> new DeleteCommand(parseTaskID(arg));
-            case "TODO" -> new TodoCommand(arg);
-            case "DEADLINE" -> new DeadlineCommand(arg);
-            case "EVENT" -> new EventCommand(arg);
-            default -> throw new GabbyException("Sorry! I don't understand what you just said =(");
+        case "BYE" -> new ByeCommand();
+        case "LIST" -> new ListCommand(arg);
+        case "MARK" -> new MarkCommand(parseTaskID(arg));
+        case "UNMARK" -> new UnmarkCommand(parseTaskID(arg));
+        case "DELETE" -> new DeleteCommand(parseTaskID(arg));
+        case "TODO" -> new TodoCommand(arg);
+        case "DEADLINE" -> new DeadlineCommand(arg);
+        case "EVENT" -> new EventCommand(arg);
+        default -> throw new GabbyException("Sorry! I don't understand what you just said =(");
         };
     }
 

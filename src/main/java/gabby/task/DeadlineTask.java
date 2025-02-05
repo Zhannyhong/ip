@@ -1,7 +1,5 @@
 package gabby.task;
 
-import gabby.GabbyException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -9,11 +7,13 @@ import java.time.temporal.TemporalAccessor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import gabby.GabbyException;
+
 /**
  * Represents a task with a deadline.
  */
 public class DeadlineTask extends Task {
-    private static final Pattern deadlinePattern = Pattern.compile("(.+) /by (.+)");
+    private static final Pattern DEADLINE_PATTERN = Pattern.compile("(.+) /by (.+)");
     protected LocalDateTime by;
 
     /**
@@ -39,16 +39,18 @@ public class DeadlineTask extends Task {
             throw new GabbyException("Oh no! The description of a deadline cannot be empty!");
         }
 
-        Matcher parsed = deadlinePattern.matcher(args);
+        Matcher parsed = DEADLINE_PATTERN.matcher(args);
         if (!parsed.matches()) {
-            throw new GabbyException("Deadlines have to be in the format: deadline <description> /by <yyyy-mm-dd hhmm>");
+            throw new GabbyException(
+                    "Deadlines have to be in the format: deadline <description> /by <yyyy-mm-dd hhmm>");
         }
 
         LocalDateTime by;
         try {
-            by = LocalDateTime.parse(parsed.group(2), Task.dtFormat);
+            by = LocalDateTime.parse(parsed.group(2), Task.DT_FORMAT);
         } catch (DateTimeParseException err) {
-            throw new GabbyException("Datetime provided is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
+            throw new GabbyException(
+                    "Datetime provided is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
         }
 
         return new DeadlineTask(parsed.group(1), by);
@@ -68,9 +70,10 @@ public class DeadlineTask extends Task {
 
         LocalDateTime by;
         try {
-            by = LocalDateTime.parse(serialized[3], Task.dtFormat);
+            by = LocalDateTime.parse(serialized[3], Task.DT_FORMAT);
         } catch (DateTimeParseException err) {
-            throw new GabbyException("Datetime parsed is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
+            throw new GabbyException(
+                    "Datetime parsed is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
         }
 
         DeadlineTask task = new DeadlineTask(serialized[2], by);
@@ -86,7 +89,12 @@ public class DeadlineTask extends Task {
 
     @Override
     public String serialize() {
-        return String.format("D | %s | %s | %s", super.isDone ? 1 : 0, super.description, Task.dtFormat.format(this.by));
+        return String.format(
+                "D | %s | %s | %s",
+                super.isDone ? 1 : 0,
+                super.description,
+                Task.DT_FORMAT.format(this.by)
+        );
     }
 
     @Override
@@ -96,6 +104,6 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), Task.dtDisplay.format(this.by));
+        return String.format("[D]%s (by: %s)", super.toString(), Task.DT_DISPLAY.format(this.by));
     }
 }

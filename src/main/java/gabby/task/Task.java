@@ -7,8 +7,8 @@ import java.time.temporal.TemporalAccessor;
  * Represents a task in the task list.
  */
 public abstract class Task {
-    protected static final DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    protected static final DateTimeFormatter dtDisplay = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm");
+    protected static final DateTimeFormatter DT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    protected static final DateTimeFormatter DT_DISPLAY = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm");
     protected String description;
     protected boolean isDone;
 

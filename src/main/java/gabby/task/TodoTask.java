@@ -1,8 +1,8 @@
 package gabby.task;
 
-import gabby.GabbyException;
-
 import java.time.temporal.TemporalAccessor;
+
+import gabby.GabbyException;
 
 /**
  * Represents a todo task.

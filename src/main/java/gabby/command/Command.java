@@ -8,7 +8,7 @@ import gabby.task.TaskList;
 /**
  * Represents a command that can be executed by the user.
  */
-abstract public class Command {
+public abstract class Command {
     protected boolean isExit = false;
 
     /**
