@@ -5,9 +5,17 @@ import gabby.Storage;
 import gabby.Ui;
 import gabby.task.TaskList;
 
+/**
+ * Represents a command to find tasks by a keyword in the description.
+ */
 public class FindCommand extends Command {
     private final String keyword;
 
+    /**
+     * Creates a new FindCommand with the specified keyword.
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
