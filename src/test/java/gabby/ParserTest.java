@@ -1,9 +1,19 @@
 package gabby;
 
-import gabby.command.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import gabby.command.ByeCommand;
+import gabby.command.DeadlineCommand;
+import gabby.command.DeleteCommand;
+import gabby.command.EventCommand;
+import gabby.command.ListCommand;
+import gabby.command.MarkCommand;
+import gabby.command.TodoCommand;
+import gabby.command.UnmarkCommand;
 
 public class ParserTest {
     @Test
