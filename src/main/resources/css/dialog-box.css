@@ -4,6 +4,7 @@
     -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
+    -fx-font-size: 14px;
 }
 
 .reply-label {
@@ -12,9 +13,12 @@
     -fx-border-radius: 1em 1em 1em 0;
 }
 
-/* Paste this below reply-label */
 .error-label {
-    -fx-background-color: #d33e3e;
+    -fx-background-color: #bf6f6f;
+}
+
+.success-label {
+    -fx-background-color: #a5cc82;
 }
 
 #displayPicture {

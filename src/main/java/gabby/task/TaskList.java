@@ -57,7 +57,7 @@ public class TaskList {
      */
     public Task deleteTask(int taskID) throws GabbyException {
         if (isTaskIdInvalid(taskID)) {
-            throw new GabbyException("gabby.task.Task ID is not in your list!");
+            throw new GabbyException("Task ID is not in your list!");
         }
 
         return taskList.remove(taskID);
@@ -72,7 +72,7 @@ public class TaskList {
      */
     public Task markTask(int taskID) throws GabbyException {
         if (isTaskIdInvalid(taskID)) {
-            throw new GabbyException("gabby.task.Task ID is not in your list!");
+            throw new GabbyException("Task ID is not in your list!");
         }
 
         Task task = taskList.get(taskID);
@@ -90,7 +90,7 @@ public class TaskList {
      */
     public Task unmarkTask(int taskID) throws GabbyException {
         if (isTaskIdInvalid(taskID)) {
-            throw new GabbyException("gabby.task.Task ID is not in your list!");
+            throw new GabbyException("Task ID is not in your list!");
         }
 
         Task task = taskList.get(taskID);

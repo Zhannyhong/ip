@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  * A GUI for Gabby using FXML.
  */
 public class Main extends Application {
-    private Gabby gabby = new Gabby("data/tasks.txt");
+    private final Gabby gabby = new Gabby("data/tasks.txt");
 
     @Override
     public void start(Stage stage) {

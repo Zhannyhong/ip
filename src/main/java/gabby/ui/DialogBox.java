@@ -38,6 +38,38 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
+    public static DialogBox getUserDialog(String text, Image img) {
+        return new DialogBox(text, img);
+    }
+
+    public static DialogBox getGabbyDialog(String text, Image img, boolean isError, String commandType) {
+        var db = new DialogBox(text, img);
+        db.flip();
+
+        if (isError) {
+            db.dialog.getStyleClass().add("error-label");
+        } else {
+            db.changeDialogStyle(commandType);
+        }
+
+        return db;
+    }
+
+    private void changeDialogStyle(String commandType) {
+        switch(commandType) {
+        case "DeadlineCommand":
+        case "EventCommand":
+        case "TodoCommand":
+        case "DeleteCommand":
+        case "MarkCommand":
+        case "UnmarkCommand":
+            dialog.getStyleClass().add("success-label");
+            break;
+        default:
+            // // Use default label style
+        }
+    }
+
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
@@ -47,15 +79,5 @@ public class DialogBox extends HBox {
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
         dialog.getStyleClass().add("reply-label");
-    }
-
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
-    }
-
-    public static DialogBox getGabbyDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
     }
 }

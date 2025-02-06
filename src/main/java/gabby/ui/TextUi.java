@@ -1,9 +1,9 @@
-package gabby;
+package gabby.ui;
 
 /**
  * Represents the user interface of the program.
  */
-public class Ui {
+public class TextUi {
     public static final String LOGO = """
               _____     __   __
              / ___/__ _/ /  / /  __ __
@@ -13,7 +13,7 @@ public class Ui {
             """;
     private static final String LINE = "____________________________________________________________";
 
-    public Ui() {
+    public TextUi() {
     }
 
     /**
@@ -22,13 +22,6 @@ public class Ui {
     public void showWelcome() {
         System.out.printf(LOGO);
         showMsg("Fancy seeing you here! What can I do for you?");
-    }
-
-    /**
-     * Shows the goodbye message.
-     */
-    public void showGoodbye() {
-        showMsg("Nuuu I hate to see you go... Hope to see you again soon!");
     }
 
     /**
