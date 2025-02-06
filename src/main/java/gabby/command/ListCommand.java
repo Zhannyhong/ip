@@ -6,7 +6,6 @@ import java.time.format.DateTimeParseException;
 
 import gabby.GabbyException;
 import gabby.Storage;
-import gabby.Ui;
 import gabby.task.TaskList;
 
 /**
@@ -33,14 +32,14 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) {
         if (tasks.size() == 0) {
-            ui.showMsg("You have no tasks in your list!");
+            this.response = "You have no tasks in your list!";
             return;
         }
 
         if (this.filterDate == null) {
-            ui.showMsg("Here are all the tasks in your list:\n" + tasks);
+            this.response = "Here are all the tasks in your list:\n" + tasks;
             return;
         }
 
@@ -48,9 +47,9 @@ public class ListCommand extends Command {
         String dateStr = filterDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
 
         if (filteredTasks.size() == 0) {
-            ui.showMsg("You have no tasks on " + dateStr + "!");
+            this.response = "You have no tasks on " + dateStr + "!";
         } else {
-            ui.showMsg("Here are the tasks in your list on " + dateStr + ":\n" + filteredTasks);
+            this.response = "Here are the tasks in your list on " + dateStr + ":\n" + filteredTasks;
         }
     }
 }

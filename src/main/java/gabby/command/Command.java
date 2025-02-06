@@ -2,7 +2,6 @@ package gabby.command;
 
 import gabby.GabbyException;
 import gabby.Storage;
-import gabby.Ui;
 import gabby.task.TaskList;
 
 /**
@@ -10,6 +9,7 @@ import gabby.task.TaskList;
  */
 public abstract class Command {
     protected boolean isExit = false;
+    protected String response;
 
     /**
      * Returns true if the command is an exit command.
@@ -20,13 +20,16 @@ public abstract class Command {
         return this.isExit;
     }
 
+    public String getResponse() {
+        return this.response;
+    }
+
     /**
      * Executes the command.
      *
      * @param tasks   The list of tasks.
-     * @param ui      The user interface.
      * @param storage The storage object.
      * @throws GabbyException If an error occurs during execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws GabbyException;
+    public abstract void execute(TaskList tasks, Storage storage) throws GabbyException;
 }

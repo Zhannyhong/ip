@@ -4,14 +4,16 @@ import java.util.Scanner;
 
 import gabby.command.Command;
 import gabby.task.TaskList;
+import gabby.ui.TextUi;
 
 /**
  * Represents the main class of the program.
  */
 public class Gabby {
     private final Storage storage;
-    private final Ui ui;
     private TaskList tasks;
+    private boolean hasEncounteredError;
+    private String commandType;
 
     /**
      * Creates a new Gabby instance.
@@ -19,7 +21,6 @@ public class Gabby {
      * @param filePath The file path to save tasks to.
      */
     public Gabby(String filePath) {
-        this.ui = new Ui();
         this.storage = new Storage(filePath);
 
         try {
@@ -37,7 +38,8 @@ public class Gabby {
      * Runs the program.
      */
     public void run() {
-        this.ui.showWelcome();
+        TextUi ui = new TextUi();
+        ui.showWelcome();
 
         try (Scanner reader = new Scanner(System.in)) {
             while (true) {
@@ -45,15 +47,47 @@ public class Gabby {
 
                 try {
                     Command c = Parser.parse(input);
-                    c.execute(this.tasks, this.ui, this.storage);
+                    c.execute(this.tasks, this.storage);
+                    ui.showMsg(c.getResponse());
 
                     if (c.isExit()) {
                         break;
                     }
                 } catch (GabbyException e) {
-                    this.ui.showMsg(e.getMessage());
+                    ui.showMsg(e.getMessage());
                 }
             }
         }
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        this.hasEncounteredError = false;
+
+        try {
+            Command c = Parser.parse(input);
+            c.execute(this.tasks, this.storage);
+            this.commandType = c.getClass().getSimpleName();
+            return c.getResponse();
+        } catch (GabbyException e) {
+            this.commandType = "";
+            this.hasEncounteredError = true;
+            return e.getMessage();
+        }
+    }
+
+    /**
+     * Returns true if the last response generated an error.
+     *
+     * @return true if the last response generated an error, false otherwise.
+     */
+    public boolean hasEncounteredError() {
+        return this.hasEncounteredError;
+    }
+
+    public String getCommandType() {
+        return this.commandType;
     }
 }

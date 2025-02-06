@@ -2,7 +2,6 @@ package gabby.command;
 
 import gabby.GabbyException;
 import gabby.Storage;
-import gabby.Ui;
 import gabby.task.EventTask;
 import gabby.task.TaskList;
 
@@ -23,11 +22,11 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws GabbyException {
+    public void execute(TaskList tasks, Storage storage) throws GabbyException {
         tasks.addTask(this.task);
-        ui.showMsg(String.format(
+        this.response = String.format(
                 "Wow what a busy man huh. I've added this task:\n  %s\nNow you have %d task%s in the list.",
-                task, tasks.size(), tasks.size() == 1 ? "" : "s"));
+                task, tasks.size(), tasks.size() == 1 ? "" : "s");
         storage.save(tasks);
     }
 }
