@@ -24,7 +24,7 @@ public class Gabby {
         this.storage = new Storage(filePath);
 
         try {
-            this.tasks = new TaskList(storage.load());
+            this.tasks = new TaskList(this.storage.load());
         } catch (Exception e) {
             this.tasks = new TaskList();
         }
@@ -57,6 +57,8 @@ public class Gabby {
                     ui.showMsg(e.getMessage());
                 }
             }
+        } catch (Exception e) {
+            ui.showMsg("Ahhh! Something went wrong! Please try again later.");
         }
     }
 

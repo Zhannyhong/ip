@@ -24,41 +24,41 @@ public class Parser {
      * @throws GabbyException If the input is invalid.
      */
     public static Command parse(String input) throws GabbyException {
-        String[] args = input.split(" ", 2);
-        String command = args[0].toUpperCase();
-        String arg = args.length > 1 ? args[1] : "";
+        String[] splitInput = input.split(" ", 2);
+        String command = splitInput[0].toUpperCase();
+        String args = splitInput.length > 1 ? splitInput[1] : "";
 
         return switch (command) {
-        case "BYE" -> new ByeCommand();
-        case "LIST" -> new ListCommand(arg);
-        case "MARK" -> new MarkCommand(parseTaskID(arg));
-        case "UNMARK" -> new UnmarkCommand(parseTaskID(arg));
-        case "DELETE" -> new DeleteCommand(parseTaskID(arg));
-        case "TODO" -> new TodoCommand(arg);
-        case "DEADLINE" -> new DeadlineCommand(arg);
-        case "EVENT" -> new EventCommand(arg);
-        case "FIND" -> new FindCommand(arg);
-        default -> throw new GabbyException("Sorry! I don't understand what you just said =(");
+            case "BYE" -> new ByeCommand();
+            case "LIST" -> new ListCommand(args);
+            case "MARK" -> new MarkCommand(parseTaskID(args));
+            case "UNMARK" -> new UnmarkCommand(parseTaskID(args));
+            case "DELETE" -> new DeleteCommand(parseTaskID(args));
+            case "TODO" -> new TodoCommand(args);
+            case "DEADLINE" -> new DeadlineCommand(args);
+            case "EVENT" -> new EventCommand(args);
+            case "FIND" -> new FindCommand(args);
+            default -> throw new GabbyException("Sorry! I don't understand what you just said =(");
         };
     }
 
     /**
      * Parses the task ID from the user input.
      *
-     * @param arg The user input.
+     * @param args The user input.
      * @return The task ID.
      * @throws GabbyException If the task ID is invalid.
      */
-    private static int parseTaskID(String arg) throws GabbyException {
-        if (arg.isEmpty()) {
+    private static int parseTaskID(String args) throws GabbyException {
+        if (args.isEmpty()) {
             throw new GabbyException("I need to know the ID of the task!");
         }
 
         int taskID;
         try {
-            taskID = Integer.parseInt(arg);
+            taskID = Integer.parseInt(args);
         } catch (NumberFormatException err) {
-            throw new GabbyException("'" + arg + "' is not a valid integer!");
+            throw new GabbyException("'" + args + "' is not a valid integer!");
         }
 
         return taskID;
