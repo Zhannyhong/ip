@@ -33,6 +33,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
+        // Greet the user
         this.dialogContainer.getChildren().add(
                 DialogBox.getGabbyDialog(
                         "Fancy seeing you here! What can I do for you?", this.gabbyImage, false, "")

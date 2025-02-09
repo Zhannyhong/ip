@@ -34,8 +34,8 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        dialog.setText(text);
-        displayPicture.setImage(img);
+        this.dialog.setText(text);
+        this.displayPicture.setImage(img);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
@@ -57,16 +57,17 @@ public class DialogBox extends HBox {
 
     private void changeDialogStyle(String commandType) {
         switch(commandType) {
-        case "DeadlineCommand":
-        case "EventCommand":
-        case "TodoCommand":
-        case "DeleteCommand":
-        case "MarkCommand":
-        case "UnmarkCommand":
-            dialog.getStyleClass().add("success-label");
+        case "DeadlineCommand": // Fallthrough
+        case "EventCommand": // Fallthrough
+        case "TodoCommand": // Fallthrough
+        case "DeleteCommand": // Fallthrough
+        case "MarkCommand": // Fallthrough
+        case "UnmarkCommand": // Fallthrough
+            this.dialog.getStyleClass().add("success-label");
             break;
         default:
-            // // Use default label style
+            // Use default label style
+            break;
         }
     }
 
@@ -78,6 +79,6 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
-        dialog.getStyleClass().add("reply-label");
+        this.dialog.getStyleClass().add("reply-label");
     }
 }

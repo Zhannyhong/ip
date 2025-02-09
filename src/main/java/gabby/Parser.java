@@ -57,13 +57,10 @@ public class Parser {
             throw new GabbyException("I need to know the ID of the task!");
         }
 
-        int taskID;
         try {
-            taskID = Integer.parseInt(args);
+            return Integer.parseInt(args);
         } catch (NumberFormatException err) {
             throw new GabbyException("'" + args + "' is not a valid integer!");
         }
-
-        return taskID;
     }
 }
