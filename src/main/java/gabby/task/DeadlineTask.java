@@ -20,7 +20,7 @@ public class DeadlineTask extends Task {
      * Creates a new deadline task.
      *
      * @param description The description of the deadline task.
-     * @param by The deadline of the task.
+     * @param by          The deadline of the task.
      */
     public DeadlineTask(String description, LocalDateTime by) {
         super(description);
@@ -53,6 +53,8 @@ public class DeadlineTask extends Task {
                     "Datetime provided is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
         }
 
+        assert by != null : "Parsed 'by' date should not be null!";
+
         return new DeadlineTask(parsed.group(1), by);
     }
 
@@ -64,6 +66,8 @@ public class DeadlineTask extends Task {
      * @throws GabbyException If the serialized task is invalid.
      */
     public static DeadlineTask deserialize(String[] serialized) throws GabbyException {
+        assert serialized != null : "Serialized data should not be null!";
+
         if (serialized.length != 4) {
             throw new GabbyException("Saved task does not have the required number of arguments!");
         }
@@ -75,6 +79,8 @@ public class DeadlineTask extends Task {
             throw new GabbyException(
                     "Datetime parsed is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
         }
+
+        assert by != null : "Deserialized 'by' date should not be null!";
 
         DeadlineTask task = new DeadlineTask(serialized[2], by);
 

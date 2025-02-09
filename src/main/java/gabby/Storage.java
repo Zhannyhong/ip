@@ -37,6 +37,8 @@ public class Storage {
      * @return The list of tasks loaded from the file.
      */
     public ArrayList<Task> load() {
+        assert !this.taskStorePath.isEmpty() : "Filepath of storage cannot be empty!";
+
         File file = new File(this.taskStorePath);
         ArrayList<Task> taskList = new ArrayList<>();
 
@@ -54,7 +56,8 @@ public class Storage {
                     case "T" -> taskList.add(TodoTask.deserialize(serialized));
                     case "D" -> taskList.add(DeadlineTask.deserialize(serialized));
                     case "E" -> taskList.add(EventTask.deserialize(serialized));
-                    default -> { } // Silently ignore tasks that are not in the correct format
+                    default -> {
+                    } // Silently ignore tasks that are not in the correct format
                     }
                 } catch (GabbyException err) {
                     // Silently ignore tasks that are not in the correct format
@@ -74,6 +77,8 @@ public class Storage {
      * @throws GabbyException If there is an error writing to the file.
      */
     public void save(TaskList taskList) throws GabbyException {
+        assert !this.taskStorePath.isEmpty() : "Filepath of storage cannot be empty!";
+
         File file = new File(this.taskStorePath);
 
         try {

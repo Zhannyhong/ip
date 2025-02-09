@@ -21,8 +21,8 @@ public class EventTask extends Task {
      * Creates a new event task.
      *
      * @param description The description of the event task.
-     * @param from The start time of the event.
-     * @param to The end time of the event.
+     * @param from        The start time of the event.
+     * @param to          The end time of the event.
      */
     public EventTask(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
@@ -59,6 +59,9 @@ public class EventTask extends Task {
                     "Datetime provided is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
         }
 
+        assert from != null : "Parsed 'from' date should not be null!";
+        assert to != null : "Parsed 'to' date should not be null!";
+
         if (to.isBefore(from)) {
             throw new GabbyException("Event end time cannot be before start time!");
         }
@@ -74,6 +77,8 @@ public class EventTask extends Task {
      * @throws GabbyException If the serialized task is invalid.
      */
     public static EventTask deserialize(String[] serialized) throws GabbyException {
+        assert serialized != null : "Serialized data should not be null!";
+
         if (serialized.length != 5) {
             throw new GabbyException("Saved task does not have the required number of arguments!");
         }
@@ -87,6 +92,9 @@ public class EventTask extends Task {
             throw new GabbyException(
                     "Datetime provided is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
         }
+
+        assert from != null : "Deserialized 'from' date should not be null!";
+        assert to != null : "Deserialized 'to' date should not be null!";
 
         if (to.isBefore(from)) {
             throw new GabbyException("Event end time cannot be before start time!");
