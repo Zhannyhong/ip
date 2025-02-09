@@ -35,6 +35,8 @@ public class TodoTask extends Task {
      * @throws GabbyException If the serialized task is invalid.
      */
     public static TodoTask deserialize(String[] serialized) throws GabbyException {
+        assert serialized != null : "Serialized data should not be null!";
+
         if (serialized.length != 3) {
             throw new GabbyException("Saved task does not have the required number of arguments!");
         }

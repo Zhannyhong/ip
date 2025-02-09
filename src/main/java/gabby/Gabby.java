@@ -21,6 +21,8 @@ public class Gabby {
      * @param filePath The file path to save tasks to.
      */
     public Gabby(String filePath) {
+        assert !filePath.isEmpty() : "Filepath of storage cannot be null!";
+
         this.storage = new Storage(filePath);
 
         try {
