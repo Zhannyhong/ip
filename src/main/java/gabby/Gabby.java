@@ -10,6 +10,7 @@ import gabby.ui.TextUi;
  * Represents the main class of the program.
  */
 public class Gabby {
+    public static final String NAME = "Gabby";
     private final Storage storage;
     private TaskList tasks;
     private boolean hasEncounteredError;

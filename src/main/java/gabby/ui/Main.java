@@ -21,14 +21,14 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
-            stage.setTitle("Gabby");
-            stage.getIcons().add(new Image("images/LKY.jpg"));
+            fxmlLoader.<MainWindow>getController().setGabby(this.gabby); // inject the Gabby instance
 
             Scene scene = new Scene(ap);
+            stage.setTitle(Gabby.NAME);
+            stage.getIcons().add(new Image("images/LKY.jpg"));
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setGabby(this.gabby); // inject the Gabby instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

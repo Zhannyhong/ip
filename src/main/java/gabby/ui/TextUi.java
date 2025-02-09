@@ -1,5 +1,7 @@
 package gabby.ui;
 
+import gabby.Gabby;
+
 /**
  * Represents the user interface of the program.
  */
@@ -31,7 +33,7 @@ public class TextUi {
      */
     public void showMsg(String msg) {
         System.out.println(LINE);
-        System.out.println("Gabby:\n" + msg);
+        System.out.println(Gabby.NAME + ":\n" + msg);
         System.out.println(LINE + "\n");
     }
 }
