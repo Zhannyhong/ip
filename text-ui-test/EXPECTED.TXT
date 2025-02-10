@@ -18,23 +18,23 @@ ____________________________________________________________
 ____________________________________________________________
 Gabby:
 Wow what a busy man huh. I've added this task:
-  [D][ ] return book (by: June 6th)
+  [D][ ] return book (by: Sun, 06 Jun 2021 23:59)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Gabby:
 Wow what a busy man huh. I've added this task:
-  [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+  [E][ ] project meeting (from: Wed, 02 Feb 2022 22:00 -- to: Wed, 02 Feb 2022 23:00)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Gabby:
-Here are the tasks in your list:
+Here are all the tasks in your list:
 1.[T][ ] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+2.[D][ ] return book (by: Sun, 06 Jun 2021 23:59)
+3.[E][ ] project meeting (from: Wed, 02 Feb 2022 22:00 -- to: Wed, 02 Feb 2022 23:00)
 ____________________________________________________________
 
 ____________________________________________________________
@@ -71,10 +71,10 @@ ____________________________________________________________
 
 ____________________________________________________________
 Gabby:
-Here are the tasks in your list:
+Here are all the tasks in your list:
 1.[T][X] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+2.[D][ ] return book (by: Sun, 06 Jun 2021 23:59)
+3.[E][ ] project meeting (from: Wed, 02 Feb 2022 22:00 -- to: Wed, 02 Feb 2022 23:00)
 4.[T][ ] join sports club
 5.[T][ ] borrow book
 ____________________________________________________________
@@ -88,9 +88,9 @@ ____________________________________________________________
 
 ____________________________________________________________
 Gabby:
-Here are the tasks in your list:
-1.[D][ ] return book (by: June 6th)
-2.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+Here are all the tasks in your list:
+1.[D][ ] return book (by: Sun, 06 Jun 2021 23:59)
+2.[E][ ] project meeting (from: Wed, 02 Feb 2022 22:00 -- to: Wed, 02 Feb 2022 23:00)
 3.[T][ ] join sports club
 4.[T][ ] borrow book
 ____________________________________________________________
