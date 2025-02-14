@@ -6,6 +6,7 @@ import gabby.command.DeadlineCommand;
 import gabby.command.DeleteCommand;
 import gabby.command.EventCommand;
 import gabby.command.FindCommand;
+import gabby.command.HelpCommand;
 import gabby.command.ListCommand;
 import gabby.command.MarkCommand;
 import gabby.command.TodoCommand;
@@ -33,6 +34,7 @@ public class Parser {
 
         return switch (command) {
         case "BYE" -> new ByeCommand();
+        case "HELP" -> new HelpCommand();
         case "LIST" -> new ListCommand(args);
         case "MARK" -> new MarkCommand(parseTaskID(args));
         case "UNMARK" -> new UnmarkCommand(parseTaskID(args));
