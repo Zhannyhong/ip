@@ -35,19 +35,20 @@ public class DeadlineTask extends Task {
      * @throws GabbyException If the arguments are invalid.
      */
     public static DeadlineTask parseArgs(String args) throws GabbyException {
-        if (args.isEmpty()) {
-            throw new GabbyException("Oh no! The description of a deadline cannot be empty!");
-        }
-
         Matcher parsed = DEADLINE_PATTERN.matcher(args);
         if (!parsed.matches()) {
             throw new GabbyException(
                     "Deadlines have to be in the format: deadline <description> /by <yyyy-mm-dd hhmm>");
         }
 
+        String description = parsed.group(1).strip();
+        if (description.isBlank()) {
+            throw new GabbyException("Oh no! The description of a deadline cannot be empty!");
+        }
+
         LocalDateTime by;
         try {
-            by = LocalDateTime.parse(parsed.group(2), Task.DT_FORMAT);
+            by = LocalDateTime.parse(parsed.group(2).strip(), Task.DT_FORMAT);
         } catch (DateTimeParseException err) {
             throw new GabbyException(
                     "Datetime has to be in the format: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
@@ -55,7 +56,7 @@ public class DeadlineTask extends Task {
 
         assert by != null : "Parsed 'by' date should not be null!";
 
-        return new DeadlineTask(parsed.group(1), by);
+        return new DeadlineTask(description, by);
     }
 
     /**

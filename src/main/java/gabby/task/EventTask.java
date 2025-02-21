@@ -38,10 +38,6 @@ public class EventTask extends Task {
      * @throws GabbyException If the arguments are invalid.
      */
     public static EventTask parseArgs(String args) throws GabbyException {
-        if (args.isEmpty()) {
-            throw new GabbyException("Oh no! The description of an event cannot be empty!");
-        }
-
         Matcher parsed = EVENT_PATTERN.matcher(args);
         if (!parsed.matches()) {
             throw new GabbyException(
@@ -49,11 +45,16 @@ public class EventTask extends Task {
             );
         }
 
+        String description = parsed.group(1).strip();
+        if (description.isBlank()) {
+            throw new GabbyException("Oh no! The description of an event cannot be empty!");
+        }
+
         LocalDateTime from;
         LocalDateTime to;
         try {
-            from = LocalDateTime.parse(parsed.group(2), Task.DT_FORMAT);
-            to = LocalDateTime.parse(parsed.group(3), Task.DT_FORMAT);
+            from = LocalDateTime.parse(parsed.group(2).strip(), Task.DT_FORMAT);
+            to = LocalDateTime.parse(parsed.group(3).strip(), Task.DT_FORMAT);
         } catch (DateTimeParseException err) {
             throw new GabbyException(
                     "Datetime has to be in the format: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
@@ -66,7 +67,7 @@ public class EventTask extends Task {
             throw new GabbyException("Event end time cannot be before start time!");
         }
 
-        return new EventTask(parsed.group(1), from, to);
+        return new EventTask(description, from, to);
     }
 
     /**
