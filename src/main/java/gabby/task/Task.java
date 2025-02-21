@@ -8,9 +8,9 @@ import java.time.temporal.TemporalAccessor;
  * Represents a task in the task list.
  */
 public abstract class Task {
-    protected static final DateTimeFormatter DT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")
+    protected static final DateTimeFormatter DT_FORMAT = DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm")
             .withResolverStyle(ResolverStyle.STRICT);
-    protected static final DateTimeFormatter DT_DISPLAY = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm")
+    protected static final DateTimeFormatter DT_DISPLAY = DateTimeFormatter.ofPattern("EEE, dd MMM uuuu HH:mm")
             .withResolverStyle(ResolverStyle.STRICT);
     protected String description;
     protected boolean isDone;

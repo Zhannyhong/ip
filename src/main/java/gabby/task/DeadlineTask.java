@@ -13,7 +13,7 @@ import gabby.GabbyException;
  * Represents a task with a deadline.
  */
 public class DeadlineTask extends Task {
-    private static final Pattern DEADLINE_PATTERN = Pattern.compile(" *(.+) +/by +(.+) *");
+    private static final Pattern DEADLINE_PATTERN = Pattern.compile("(.+) /by (.+)");
     protected LocalDateTime by;
 
     /**
@@ -41,14 +41,14 @@ public class DeadlineTask extends Task {
                     "Deadlines have to be in the format: deadline <description> /by <yyyy-mm-dd hhmm>");
         }
 
-        String description = parsed.group(1);
+        String description = parsed.group(1).strip();
         if (description.isBlank()) {
             throw new GabbyException("Oh no! The description of a deadline cannot be empty!");
         }
 
         LocalDateTime by;
         try {
-            by = LocalDateTime.parse(parsed.group(2), Task.DT_FORMAT);
+            by = LocalDateTime.parse(parsed.group(2).strip(), Task.DT_FORMAT);
         } catch (DateTimeParseException err) {
             throw new GabbyException(
                     "Datetime has to be in the format: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");

@@ -13,7 +13,7 @@ import gabby.GabbyException;
  * Represents an event task with a start and end deadline.
  */
 public class EventTask extends Task {
-    private static final Pattern EVENT_PATTERN = Pattern.compile(" *(.+) +/from +(.+?) +/to +(.+) *");
+    private static final Pattern EVENT_PATTERN = Pattern.compile("(.+) /from (.+) /to (.+)");
     protected LocalDateTime from;
     protected LocalDateTime to;
 
@@ -45,7 +45,7 @@ public class EventTask extends Task {
             );
         }
 
-        String description = parsed.group(1);
+        String description = parsed.group(1).strip();
         if (description.isBlank()) {
             throw new GabbyException("Oh no! The description of an event cannot be empty!");
         }
@@ -53,8 +53,8 @@ public class EventTask extends Task {
         LocalDateTime from;
         LocalDateTime to;
         try {
-            from = LocalDateTime.parse(parsed.group(2), Task.DT_FORMAT);
-            to = LocalDateTime.parse(parsed.group(3), Task.DT_FORMAT);
+            from = LocalDateTime.parse(parsed.group(2).strip(), Task.DT_FORMAT);
+            to = LocalDateTime.parse(parsed.group(3).strip(), Task.DT_FORMAT);
         } catch (DateTimeParseException err) {
             throw new GabbyException(
                     "Datetime has to be in the format: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
