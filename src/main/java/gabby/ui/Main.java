@@ -25,7 +25,7 @@ public class Main extends Application {
 
             Scene scene = new Scene(ap);
             stage.setTitle(Gabby.NAME);
-            stage.getIcons().add(new Image("images/LKY.jpg"));
+            stage.getIcons().add(new Image("images/Gabby-logo.png"));
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);

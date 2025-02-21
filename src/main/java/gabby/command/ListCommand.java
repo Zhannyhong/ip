@@ -26,7 +26,7 @@ public class ListCommand extends Command {
                 this.filterDate = LocalDate.parse(args, DateTimeFormatter.ISO_LOCAL_DATE);
             } catch (DateTimeParseException err) {
                 throw new GabbyException(
-                        "Date provided is in the wrong format. Expected: yyyy-mm-dd (e.g. 2001-11-23)");
+                        "Date has to be in the format: yyyy-mm-dd (e.g. 2001-11-23)");
             }
         }
     }
