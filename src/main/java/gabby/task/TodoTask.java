@@ -20,7 +20,7 @@ public class TodoTask extends Task {
      * @throws GabbyException If the arguments are invalid.
      */
     public static TodoTask parseArgs(String args) throws GabbyException {
-        if (args.isEmpty()) {
+        if (args.isBlank()) {
             throw new GabbyException("Oh no! The description of a todo cannot be empty!");
         }
 

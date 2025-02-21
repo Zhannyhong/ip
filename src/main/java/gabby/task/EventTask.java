@@ -13,7 +13,7 @@ import gabby.GabbyException;
  * Represents an event task with a start and end deadline.
  */
 public class EventTask extends Task {
-    private static final Pattern EVENT_PATTERN = Pattern.compile("(.+) /from (.+) /to (.+)");
+    private static final Pattern EVENT_PATTERN = Pattern.compile(" *(.+) +/from +(.+?) +/to +(.+) *");
     protected LocalDateTime from;
     protected LocalDateTime to;
 
@@ -38,15 +38,16 @@ public class EventTask extends Task {
      * @throws GabbyException If the arguments are invalid.
      */
     public static EventTask parseArgs(String args) throws GabbyException {
-        if (args.isEmpty()) {
-            throw new GabbyException("Oh no! The description of an event cannot be empty!");
-        }
-
         Matcher parsed = EVENT_PATTERN.matcher(args);
         if (!parsed.matches()) {
             throw new GabbyException(
                     "Events have to be in the format: event <description> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm>"
             );
+        }
+
+        String description = parsed.group(1);
+        if (description.isBlank()) {
+            throw new GabbyException("Oh no! The description of an event cannot be empty!");
         }
 
         LocalDateTime from;
@@ -66,7 +67,7 @@ public class EventTask extends Task {
             throw new GabbyException("Event end time cannot be before start time!");
         }
 
-        return new EventTask(parsed.group(1), from, to);
+        return new EventTask(description, from, to);
     }
 
     /**

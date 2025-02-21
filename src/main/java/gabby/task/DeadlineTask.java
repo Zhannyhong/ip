@@ -13,7 +13,7 @@ import gabby.GabbyException;
  * Represents a task with a deadline.
  */
 public class DeadlineTask extends Task {
-    private static final Pattern DEADLINE_PATTERN = Pattern.compile("(.+) /by (.+)");
+    private static final Pattern DEADLINE_PATTERN = Pattern.compile(" *(.+) +/by +(.+) *");
     protected LocalDateTime by;
 
     /**
@@ -35,14 +35,15 @@ public class DeadlineTask extends Task {
      * @throws GabbyException If the arguments are invalid.
      */
     public static DeadlineTask parseArgs(String args) throws GabbyException {
-        if (args.isEmpty()) {
-            throw new GabbyException("Oh no! The description of a deadline cannot be empty!");
-        }
-
         Matcher parsed = DEADLINE_PATTERN.matcher(args);
         if (!parsed.matches()) {
             throw new GabbyException(
                     "Deadlines have to be in the format: deadline <description> /by <yyyy-mm-dd hhmm>");
+        }
+
+        String description = parsed.group(1);
+        if (description.isBlank()) {
+            throw new GabbyException("Oh no! The description of a deadline cannot be empty!");
         }
 
         LocalDateTime by;
@@ -55,7 +56,7 @@ public class DeadlineTask extends Task {
 
         assert by != null : "Parsed 'by' date should not be null!";
 
-        return new DeadlineTask(parsed.group(1), by);
+        return new DeadlineTask(description, by);
     }
 
     /**
