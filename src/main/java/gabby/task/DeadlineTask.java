@@ -50,7 +50,7 @@ public class DeadlineTask extends Task {
             by = LocalDateTime.parse(parsed.group(2), Task.DT_FORMAT);
         } catch (DateTimeParseException err) {
             throw new GabbyException(
-                    "Datetime provided is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
+                    "Datetime has to be in the format: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
         }
 
         assert by != null : "Parsed 'by' date should not be null!";
@@ -77,7 +77,7 @@ public class DeadlineTask extends Task {
             by = LocalDateTime.parse(serialized[3], Task.DT_FORMAT);
         } catch (DateTimeParseException err) {
             throw new GabbyException(
-                    "Datetime parsed is in the wrong format. Expected: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
+                    "Datetime has to be in the format: yyyy-mm-dd hhmm (e.g. 2001-11-23 2025)");
         }
 
         assert by != null : "Deserialized 'by' date should not be null!";
