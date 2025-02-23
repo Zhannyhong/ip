@@ -24,6 +24,7 @@ public class Parser {
      * @return The command
      * @throws GabbyException If the input is invalid.
      */
+    @SuppressWarnings("checkstyle:Indentation:caseIndent")
     public static Command parse(String input) throws GabbyException {
         String[] splitInput = input.split(" ", 2);
         assert splitInput.length >= 1 : "Input not split correctly";
@@ -33,17 +34,17 @@ public class Parser {
         String args = splitInput.length > 1 ? splitInput[1] : "";
 
         return switch (command) {
-        case "BYE" -> new ByeCommand();
-        case "HELP" -> new HelpCommand();
-        case "LIST" -> new ListCommand(args);
-        case "MARK" -> new MarkCommand(parseTaskID(args));
-        case "UNMARK" -> new UnmarkCommand(parseTaskID(args));
-        case "DELETE" -> new DeleteCommand(parseTaskID(args));
-        case "TODO" -> new TodoCommand(args);
-        case "DEADLINE" -> new DeadlineCommand(args);
-        case "EVENT" -> new EventCommand(args);
-        case "FIND" -> new FindCommand(args);
-        default -> throw new GabbyException("Sorry! I don't understand what you just said =(");
+            case "BYE" -> new ByeCommand();
+            case "HELP" -> new HelpCommand();
+            case "LIST" -> new ListCommand(args);
+            case "MARK" -> new MarkCommand(parseTaskID(args));
+            case "UNMARK" -> new UnmarkCommand(parseTaskID(args));
+            case "DELETE" -> new DeleteCommand(parseTaskID(args));
+            case "TODO" -> new TodoCommand(args);
+            case "DEADLINE" -> new DeadlineCommand(args);
+            case "EVENT" -> new EventCommand(args);
+            case "FIND" -> new FindCommand(args);
+            default -> throw new GabbyException("Sorry! I don't understand what you just said =(");
         };
     }
 

@@ -53,11 +53,10 @@ public class Storage {
 
                 try {
                     switch (serialized[0]) {
-                    case "T" -> taskList.add(TodoTask.deserialize(serialized));
-                    case "D" -> taskList.add(DeadlineTask.deserialize(serialized));
-                    case "E" -> taskList.add(EventTask.deserialize(serialized));
-                    default -> {
-                    } // Silently ignore tasks that are not in the correct format
+                        case "T" -> taskList.add(TodoTask.deserialize(serialized));
+                        case "D" -> taskList.add(DeadlineTask.deserialize(serialized));
+                        case "E" -> taskList.add(EventTask.deserialize(serialized));
+                        default -> { } // Silently ignore tasks that are not in the correct format
                     }
                 } catch (GabbyException err) {
                     // Silently ignore tasks that are not in the correct format
