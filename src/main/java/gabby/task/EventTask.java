@@ -45,7 +45,7 @@ public class EventTask extends Task {
             );
         }
 
-        String description = parsed.group(1).strip();
+        String description = parsed.group(1).strip().replace("|", "||");
         if (description.isBlank()) {
             throw new GabbyException("Oh no! The description of an event cannot be empty!");
         }

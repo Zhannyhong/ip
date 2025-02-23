@@ -41,7 +41,7 @@ public class DeadlineTask extends Task {
                     "Deadlines have to be in the format: deadline <description> /by <yyyy-mm-dd hhmm>");
         }
 
-        String description = parsed.group(1).strip();
+        String description = parsed.group(1).strip().replace("|", "||");
         if (description.isBlank()) {
             throw new GabbyException("Oh no! The description of a deadline cannot be empty!");
         }

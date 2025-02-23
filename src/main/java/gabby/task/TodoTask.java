@@ -24,7 +24,7 @@ public class TodoTask extends Task {
             throw new GabbyException("Oh no! The description of a todo cannot be empty!");
         }
 
-        return new TodoTask(args);
+        return new TodoTask(args.replace("|", "||"));
     }
 
     /**
